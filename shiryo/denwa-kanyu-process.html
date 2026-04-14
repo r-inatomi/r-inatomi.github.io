@@ -69,6 +69,12 @@ body {
 .lb-orange h3 { color: #b56000; }
 .lb-orange ul li::before { color: #E07B27; }
 .lb-orange .verdict { background: #FFF0D6; color: #b56000; }
+.lb-purple { border-left-color: #6D4FC2; }
+.lb-purple h3 { color: #4a2f9e; }
+.lb-purple ul li::before { color: #6D4FC2; }
+.lb-purple .verdict { background: #EDE8FA; color: #4a2f9e; }
+.lb-purple .law-note { font-size: 12px; color: #555; margin-top: 8px; background: #f7f4fd; border-radius: 6px; padding: 6px 10px; }
+.lb-full { grid-column: 1 / -1; }
 
 /* ── 凡例 ── */
 .legend {
@@ -261,15 +267,22 @@ body {
     <span class="verdict">△ 非該当の可能性が高い</span>
     <h3>特定継続的役務提供（特商法第4章）</h3>
     <ul>
-      <li>ロジカルシンキング・タスクマネジメント・コミュニケーション → 7業種に非該当</li>
-      <li>AI活用 → パソコン教室該当性はグレー</li>
-      <li>非該当でも消費者契約法は適用（以下の条文が直接適用）：<br>
-        &nbsp;・<strong>第9条</strong>：解除時の損害賠償額の上限制限（平均損害を超える違約金は無効）<br>
-        &nbsp;・<strong>第10条</strong>：消費者の権利を一方的に制限する条項は無効（「返金不可」「いかなる場合も解約不可」等）<br>
-        &nbsp;・<strong>第4条</strong>：不実告知・断定的判断の提供・不当な勧誘による取消権（1年・5年）<br>
-        → 中途解約の場合の返金額計算式・違約金上限・解約申出窓口を利用規約に明記する必要あり</li>
-      <li>35万円・高額なため<strong>解約規定・返金方針の明文化を強く推奨</strong></li>
+      <li>ロジカルシンキング・タスクマネジメント・コミュニケーション → 7業種（語学・家庭教師・学習塾・PC教室・結婚紹介・エステ・美容医療）に非該当</li>
+      <li>AI活用 → パソコン教室該当性はグレー（経産省グレーゾーン解消制度で要確認）</li>
+      <li>非該当であれば：第4章の書面義務・中途解約法定権は不適用</li>
+      <li>ただし高額（35万円）なため、<strong>自主的な解約・返金規定の明文化を強く推奨</strong></li>
     </ul>
+  </div>
+  <div class="law-box lb-purple lb-full">
+    <span class="verdict">● 常時適用（特商法の適用有無に関わらず）</span>
+    <h3>消費者契約法（全B2C契約に適用）</h3>
+    <ul>
+      <li><strong>第4条（取消権）</strong>：勧誘時の不実告知・断定的判断の提供・不退去・監禁等により契約を締結させた場合、消費者は取消可能（追認できる時から1年、契約から5年で時効）</li>
+      <li><strong>第8条（免責条項の無効）</strong>：事業者の損害賠償責任を全部免除する条項は無効（「いかなる場合も損害賠償しない」等）</li>
+      <li><strong>第9条（違約金上限）</strong>：解除時の損害賠償額・違約金が「平均的な損害額」を超える部分は無効。根拠のない高額違約金設定は無効リスクがある</li>
+      <li><strong>第10条（不当条項の無効）</strong>：消費者の権利を一方的に制限・事業者の義務を免除する条項で、信義則に反するものは無効（「返金不可」「解約不可」の絶対的記載など）</li>
+    </ul>
+    <div class="law-note">→ 利用規約への必須記載：解約申出窓口・解約時の返金額算定方式・違約金がある場合はその算定根拠・事業者の損害賠償責任範囲</div>
   </div>
 </div>
 
@@ -626,7 +639,7 @@ body {
           <div class="step-name">STEP 7｜クーリングオフ期間終了 → サービス開始</div>
           <div class="step-sub">書面受領日から9日目以降にアクセス付与・受講開始</div>
         </div>
-        <span class="step-law">特商法 第25条・消費者契約法</span>
+        <span class="step-law">特商法 第24条（損害賠償上限）</span>
       </div>
       <div class="step-body">
         <div class="rb rb-must">
@@ -648,10 +661,11 @@ body {
           </ul>
         </div>
         <div class="rb rb-right">
-          <div class="rb-title">🔵 損害賠償の上限（法第25条）</div>
+          <div class="rb-title">🔵 解除後の損害賠償上限（特商法 第24条・消費者契約法 第9条）</div>
           <ul>
-            <li>役務提供済み分：提供済み役務の対価相当額のみ</li>
-            <li>35万円の場合：解約規定は弁護士レビューを推奨</li>
+            <li>特商法 第24条：役務提供前なら受領済み対価のみ返還。提供後は提供済み部分の対価相当額のみ請求可</li>
+            <li>消費者契約法 第9条：算定した損害賠償額・違約金が「平均的な損害」を超える部分は無効</li>
+            <li>35万円・高額なため解約規定の違約金設定は弁護士レビューを推奨</li>
           </ul>
         </div>
       </div>
