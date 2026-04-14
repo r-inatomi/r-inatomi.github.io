@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>電話勧誘販売 コンプライアンス・プロセス図</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+  background: #ECEEF2;
+  color: #1a1a1a;
+  padding: 20px 16px;
+  font-size: 14px;
+}
+
+/* ── ヘッダー ── */
+.page-header {
+  background: linear-gradient(135deg, #1E2761 0%, #364FC7 100%);
+  color: #fff;
+  border-radius: 14px;
+  padding: 22px 24px;
+  margin-bottom: 16px;
+}
+.tags { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+.tag {
+  font-size: 11px; font-weight: 700;
+  padding: 3px 10px; border-radius: 20px;
+  background: rgba(255,255,255,.18); color: #fff;
+}
+.tag.warn { background: #E07B27; }
+.tag.gray { background: #F4A261; }
+.page-header h1 { font-size: 17px; font-weight: 800; line-height: 1.35; margin-bottom: 6px; }
+.page-header p  { font-size: 13px; color: #CADCFC; line-height: 1.65; }
+.back-link { display: inline-block; margin-bottom: 14px; font-size: 13px; color: #1E2761; text-decoration: none; font-weight: 600; }
+.back-link:hover { text-decoration: underline; }
+
+/* ── 法的適用サマリー ── */
+.law-summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+@media (max-width: 640px) {
+  .law-summary { grid-template-columns: 1fr; }
+}
+.law-box {
+  background: #fff;
+  border-radius: 12px;
+  padding: 14px 16px;
+  border-left: 5px solid;
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+}
+.law-box h3 { font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+.law-box ul { list-style: none; }
+.law-box ul li { font-size: 13px; line-height: 1.65; padding-left: 14px; position: relative; }
+.law-box ul li::before { content: "›"; position: absolute; left: 0; font-weight: 700; }
+.law-box .verdict {
+  display: inline-block; font-size: 11px; font-weight: 700;
+  padding: 2px 8px; border-radius: 10px; margin-bottom: 6px;
+}
+.lb-red  { border-left-color: #C0392B; }
+.lb-red h3 { color: #C0392B; }
+.lb-red ul li::before { color: #C0392B; }
+.lb-red .verdict { background: #FDDCDC; color: #C0392B; }
+.lb-orange { border-left-color: #E07B27; }
+.lb-orange h3 { color: #b56000; }
+.lb-orange ul li::before { color: #E07B27; }
+.lb-orange .verdict { background: #FFF0D6; color: #b56000; }
+
+/* ── 凡例 ── */
+.legend {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-bottom: 20px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 12px 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.05);
+}
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; }
+.legend-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
+
+/* ── タイムライン ── */
+.timeline { position: relative; }
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 27px; top: 24px; bottom: 24px;
+  width: 4px;
+  background: linear-gradient(to bottom, #1E2761 0%, #E07B27 50%, #27AE60 100%);
+  border-radius: 2px; z-index: 0;
+}
+@media (max-width: 480px) {
+  .timeline::before { left: 19px; }
+}
+
+/* ── ステップ ── */
+.step { display: flex; gap: 12px; margin-bottom: 14px; position: relative; z-index: 1; }
+.step-badge {
+  flex-shrink: 0; width: 34px; height: 34px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 800; color: #fff;
+  box-shadow: 0 3px 10px rgba(0,0,0,.22);
+  margin-top: 12px; border: 3px solid #ECEEF2;
+}
+@media (max-width: 480px) {
+  .step-badge { width: 26px; height: 26px; font-size: 10px; }
+}
+
+/* ── ステップカード ── */
+.step-card {
+  flex: 1; background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 3px 16px rgba(0,0,0,.07);
+  overflow: hidden;
+  min-width: 0;
+}
+.step-head {
+  display: flex; align-items: flex-start; gap: 8px;
+  padding: 10px 14px; color: #fff; flex-wrap: wrap;
+}
+.step-head .step-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+.step-head .step-info { flex: 1; min-width: 0; }
+.step-head .step-name { font-size: 13px; font-weight: 700; line-height: 1.35; }
+.step-head .step-sub { font-size: 11px; opacity: .82; margin-top: 2px; line-height: 1.4; }
+.step-head .step-law {
+  font-size: 10px; background: rgba(255,255,255,.2);
+  padding: 2px 7px; border-radius: 8px; white-space: nowrap;
+  align-self: flex-start; margin-top: 2px;
+}
+
+.step-body {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+  padding: 12px 12px;
+}
+@media (max-width: 640px) {
+  .step-body { grid-template-columns: 1fr; }
+}
+
+/* ── 要件ブロック ── */
+.rb {
+  border-radius: 9px; padding: 10px 12px;
+  border-left: 4px solid;
+}
+.rb-title {
+  font-size: 11px; font-weight: 700; letter-spacing: .03em;
+  margin-bottom: 7px; display: flex; align-items: center; gap: 5px;
+}
+.rb ul { list-style: none; }
+.rb ul li {
+  font-size: 13px; line-height: 1.6;
+  padding: 2px 0 2px 14px;
+  position: relative;
+}
+.rb ul li::before { content: "›"; position: absolute; left: 0; font-weight: 700; }
+.rb .note {
+  font-size: 13px; margin-top: 7px;
+  padding: 5px 8px; border-radius: 6px; line-height: 1.55;
+}
+.rb .must-label {
+  display: inline-block; font-size: 11px; font-weight: 700;
+  padding: 1px 7px; border-radius: 8px; margin-bottom: 5px;
+}
+
+.rb-explain  { background: #EEF3FF; border-left-color: #3B5EDB; }
+.rb-explain .rb-title  { color: #3B5EDB; }
+.rb-explain ul li::before { color: #3B5EDB; }
+.rb-explain .note { background: #DDE7FF; color: #2a45a8; }
+
+.rb-doc { background: #FFF5EC; border-left-color: #E07B27; }
+.rb-doc .rb-title { color: #b56000; }
+.rb-doc ul li::before { color: #E07B27; }
+.rb-doc .note { background: #FFE8CC; color: #7a3e00; }
+
+.rb-must { background: #EDFAF3; border-left-color: #27AE60; }
+.rb-must .rb-title { color: #1a7a48; }
+.rb-must ul li::before { color: #27AE60; }
+.rb-must .note { background: #C6F0D9; color: #0f4f2c; }
+.rb-must .must-label { background: #C6F0D9; color: #0f4f2c; }
+
+.rb-ng { background: #FFF0F0; border-left-color: #C0392B; }
+.rb-ng .rb-title { color: #C0392B; }
+.rb-ng ul li::before { color: #C0392B; }
+.rb-ng .note { background: #FDDCDC; color: #7a1a1a; }
+
+.rb-right { background: #F5F0FF; border-left-color: #7B4FD4; }
+.rb-right .rb-title { color: #5c2fb5; }
+.rb-right ul li::before { color: #7B4FD4; }
+.rb-right .note { background: #E5D8FF; color: #3a1b8a; }
+
+.c1{background:#1E2761;} .c2{background:#2563a8;} .c3{background:#1a6e9f;}
+.c4{background:#1a7a5e;} .c5{background:#b85c00;} .c6{background:#7B4FD4;}
+.c7{background:#C0392B;} .c8{background:#27AE60;}
+.b1{background:#1E2761;} .b2{background:#2563a8;} .b3{background:#1a6e9f;}
+.b4{background:#1a7a5e;} .b5{background:#b85c00;} .b6{background:#7B4FD4;}
+.b7{background:#C0392B;} .b8{background:#27AE60;}
+
+/* ── クーリングオフボックス ── */
+.co-box {
+  margin: 0 12px 12px;
+  background: linear-gradient(135deg, #FFF0F0, #FFE5E5);
+  border: 2px solid #C0392B;
+  border-radius: 12px; padding: 14px 16px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px 20px;
+}
+@media (max-width: 480px) {
+  .co-box { grid-template-columns: 1fr; }
+  .co-days { display: flex; align-items: baseline; gap: 8px; }
+}
+.co-days { text-align: center; }
+.co-days .num { font-size: 48px; font-weight: 800; color: #C0392B; line-height: 1; }
+.co-days .unit { font-size: 15px; font-weight: 700; color: #C0392B; }
+.co-days .label { font-size: 13px; color: #888; }
+.co-detail h4 { font-size: 13px; font-weight: 700; color: #C0392B; margin-bottom: 8px; }
+.co-grid { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; }
+.co-k { font-size: 13px; font-weight: 700; color: #C0392B; white-space: nowrap; padding-top: 2px; }
+.co-v { font-size: 13px; color: #333; line-height: 1.6; }
+
+/* ── フッター ── */
+.footer {
+  margin-top: 24px; padding: 14px 16px;
+  background: #fff; border-radius: 12px;
+  font-size: 13px; color: #777; line-height: 1.8;
+  box-shadow: 0 2px 8px rgba(0,0,0,.05);
+}
+</style>
+</head>
+<body>
+
+<a class="back-link" href="index.html">← 資料作成一覧に戻る</a>
+
+<div class="page-header">
+  <div class="tags">
+    <span class="tag">特商法 第2章 電話勧誘販売</span>
+    <span class="tag warn">Zoom説明会→クロージング前提</span>
+    <span class="tag gray">35万円 ビジネス基礎スキル講座（オンデマンド動画）</span>
+    <span class="tag">2026年6月改正対応</span>
+  </div>
+  <h1>電話勧誘販売｜勧誘〜契約<br>コンプライアンス・プロセス</h1>
+  <p>Zoom説明会を経由してクロージングを行う場合の、各フェーズにおける事業者の義務・禁止事項と、ユーザーに<strong>必ずしてもらわなければならない行動（証跡必須）</strong>を整理したものです。</p>
+</div>
+
+<div class="law-summary">
+  <div class="law-box lb-red">
+    <span class="verdict">⚠ 該当（前提として対応）</span>
+    <h3>電話勧誘販売（特商法第2章）</h3>
+    <ul>
+      <li>Zoomは「電話」に該当（消費者庁見解）</li>
+      <li>説明会URLを送付し誘導→「電話をかけさせる行為」の可能性（2026年改正）</li>
+      <li>該当した場合：書面交付・クーリングオフ8日間・禁止行為規制が全適用</li>
+      <li>グレーゾーンだが、<strong>該当前提で書面・フローを整備することがリスク最小</strong></li>
+    </ul>
+  </div>
+  <div class="law-box lb-orange">
+    <span class="verdict">△ 非該当の可能性が高い</span>
+    <h3>特定継続的役務提供（特商法第4章）</h3>
+    <ul>
+      <li>ロジカルシンキング・タスクマネジメント・コミュニケーション → 7業種に非該当</li>
+      <li>AI活用 → パソコン教室該当性はグレー</li>
+      <li>非該当でも消費者契約法は適用（以下の条文が直接適用）：<br>
+        &nbsp;・<strong>第9条</strong>：解除時の損害賠償額の上限制限（平均損害を超える違約金は無効）<br>
+        &nbsp;・<strong>第10条</strong>：消費者の権利を一方的に制限する条項は無効（「返金不可」「いかなる場合も解約不可」等）<br>
+        &nbsp;・<strong>第4条</strong>：不実告知・断定的判断の提供・不当な勧誘による取消権（1年・5年）<br>
+        → 中途解約の場合の返金額計算式・違約金上限・解約申出窓口を利用規約に明記する必要あり</li>
+      <li>35万円・高額なため<strong>解約規定・返金方針の明文化を強く推奨</strong></li>
+    </ul>
+  </div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#3B5EDB;"></div>説明すべき内容</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#E07B27;"></div>提示・交付すべき書面</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#27AE60;"></div>してもらわなければならない行動</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#C0392B;"></div>禁止行為</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#7B4FD4;"></div>追加義務・権利</div>
+</div>
+
+<div class="timeline">
+
+  <!-- STEP 0 -->
+  <div class="step">
+    <div class="step-badge b1">前</div>
+    <div class="step-card">
+      <div class="step-head c1">
+        <span class="step-icon">📢</span>
+        <div class="step-info">
+          <div class="step-name">STEP 0｜説明会の案内・申込みフェーズ</div>
+          <div class="step-sub">LP・メール・SNS等での募集〜申込み完了まで</div>
+        </div>
+        <span class="step-law">法第16条 準備</span>
+      </div>
+      <div class="step-body">
+        <div class="rb rb-explain">
+          <div class="rb-title">📘 案内文・LPに明示すること</div>
+          <ul>
+            <li>事業者名（会社名）</li>
+            <li>「本説明会では○○講座（35万円）へのお申込みご案内を行います」と明記</li>
+            <li>Zoom説明会が<strong>購入勧誘目的</strong>であることを明示</li>
+            <li>商品名・概要・受講形態（オンデマンド動画）</li>
+          </ul>
+          <div class="note">⚠ 目的を隠して誘導する「目的秘匿型」は電話勧誘販売の違反要件。LP・招待メールへの明記が必須。</div>
+        </div>
+        <div class="rb rb-must">
+          <div class="rb-title">✅ してもらわなければならない行動</div>
+          <span class="must-label">申込みフォーム送信</span>
+          <ul>
+            <li>申込みフォームに氏名・連絡先を入力して<strong>送信</strong></li>
+            <li>「本説明会が35万円講座の購入案内を目的とすることに同意する」への<strong>チェックON・送信</strong></li>
+          </ul>
+          <div class="note">このチェックが「不意打ち性なし」の証跡になる。フォーム回答の記録・保存必須。</div>
+        </div>
+        <div class="rb rb-ng">
+          <div class="rb-title">🚫 案内・LP上の禁止事項（法第21条・景品表示法）</div>
+          <ul>
+            <li>実質有料なのに「無料」と表示する（景品表示法の有利誤認表示）</li>
+            <li>実際は毎回同じ価格なのに「今日限り特別価格」と表示する（不実告知）</li>
+            <li>実際には残席が十分あるのに「残席〇名」と虚偽表示する（不実告知）</li>
+            <li>商品名・価格を一切明示せず申込みだけ取る（STEP 1の法定告知の前提を欠く）</li>
+          </ul>
+          <div class="note">※「先着〇名限定・特別価格」自体は合法。事実と一致していれば問題なし。問題は事実でない表示。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="step">
+    <div class="step-badge b2">1</div>
+    <div class="step-card">
+      <div class="step-head c2">
+        <span class="step-icon">📹</span>
+        <div class="step-info">
+          <div class="step-name">STEP 1｜Zoom開始直後：氏名等の明示（法第16条）</div>
+          <div class="step-sub">接続確認後、勧誘開始前に必ず実施</div>
+        </div>
+        <span class="step-law">特商法 第16条</span>
+      </div>
+      <div class="step-body">
+        <div class="rb rb-explain">
+          <div class="rb-title">📘 冒頭トークで必ず告げること（4項目）</div>
+          <ul>
+            <li>① 事業者の名称（会社名）</li>
+            <li>② 勧誘を行う担当者の氏名</li>
+            <li>③ 販売しようとする役務の種類（「ビジネス基礎スキル講座」）</li>
+            <li>④ 「本日は上記講座のお申込みご案内を目的としたご説明です」</li>
+          </ul>
+          <div class="note">4項目すべて告げない場合は法第16条違反。冒頭トークの<strong>台本化・録音</strong>を強く推奨。</div>
+        </div>
+        <div class="rb rb-must">
+          <div class="rb-title">✅ してもらわなければならない行動</div>
+          <span class="must-label">口頭確認 or Zoomチャット</span>
+          <ul>
+            <li>「本日の目的についてご確認いただきましたか？」への<strong>口頭またはZoomチャットで「はい」の回答</strong></li>
+            <li>本人確認（氏名・申込み者と一致確認）</li>
+          </ul>
+          <div class="note">Zoom録画または画面収録で記録すること。本人確認記録を保存する。</div>
+        </div>
+        <div class="rb rb-ng">
+          <div class="rb-title">🚫 禁止・NG</div>
+          <ul>
+            <li>4項目告知をせずに説明・勧誘を開始する</li>
+            <li>「まずは説明だけ聞いてください」として目的告知を後回しにする</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step">
+    <div class="step-badge b3">2</div>
+    <div class="step-card">
+      <div class="step-head c3">
+        <span class="step-icon">💬</span>
+        <div class="step-info">
+          <div class="step-name">STEP 2｜説明会中：重要事項の説明（法第21条）</div>
+          <div class="step-sub">申込み前に口頭で全項目を説明する</div>
+        </div>
+        <span class="step-law">特商法 第21条</span>
+      </div>
+      <div class="step-body">
+        <div class="rb rb-explain">
+          <div class="rb-title">📘 説明すべき重要事項（全項目必須）</div>
+          <ul>
+            <li>講座の内容（ロジカルシンキング・タスクマネジメント・コミュニケーション・AI活用）</li>
+            <li>受講形態：オンデマンド動画（視聴期間：〇か月）</li>
+            <li>販売価格：<strong>350,000円（税込）</strong></li>
+            <li>支払い方法・時期（一括 / 分割 / クレジット等）</li>
+            <li>役務の提供開始時期・視聴期間の終了日</li>
+            <li>途中解約の条件・違約金の有無と金額</li>
+            <li>クーリングオフができること・方法・期間（8日間）</li>
+          </ul>
+          <div class="note">⚠ 35万円の高額案件。価格・解約条件の口頭説明は特に丁寧に。「後で書面に書いてあります」は不可。</div>
+        </div>
+        <div class="rb rb-ng">
+          <div class="rb-title">🚫 禁止行為（法第21条）</div>
+          <ul>
+            <li>不実告知：事実と異なる説明（効果保証・収入保証など）</li>
+            <li>故意の不告知：解約条件・実際の学習時間等を意図的に伝えない</li>
+            <li>威迫・困惑：「今日決めないと価格が上がる」等のプレッシャー</li>
+            <li>「断られた」後の継続勧誘（法第17条）</li>
+            <li>根拠のない「受講者全員が〇〇を達成」等の誇大表現</li>
+          </ul>
+        </div>
+        <div class="rb rb-right">
+          <div class="rb-title">🔵 記録として残すべきこと</div>
+          <ul>
+            <li>Zoom録画（音声・映像）を保存 ← 説明内容の証跡</li>
+            <li>説明資料（スライド等）を送付・保存</li>
+          </ul>
+          <div class="note">消費者からクレーム・解約申請があった際の証跡として機能する。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step">
+    <div class="step-badge b4">3</div>
+    <div class="step-card">
+      <div class="step-head c4">
+        <span class="step-icon">✍️</span>
+        <div class="step-info">
+          <div class="step-name">STEP 3｜クロージング：申込み意思の確認</div>
+          <div class="step-sub">口頭での申込み意思表示 → 復唱確認 → 次ステップへ</div>
+        </div>
+        <span class="step-law">特商法 第18条 準備</span>
+      </div>
+      <div class="step-body">
+        <div class="rb rb-explain">
+          <div class="rb-title">📘 クロージング時に告げること</div>
+          <ul>
+            <li>申込み内容（商品名・金額・支払い方法・視聴期間）を声に出して復唱確認</li>
+            <li>「この内容でよろしいですか？」と明示的に意思確認</li>
+            <li>「書面受領後8日間はクーリングオフができます」と告知</li>
+          </ul>
+        </div>
+        <div class="rb rb-must">
+          <div class="rb-title">✅ してもらわなければならない行動</div>
+          <span class="must-label">口頭での明示的同意</span>
+          <ul>
+            <li>復唱内容への<strong>「はい」「申し込みます」等の口頭での申込み意思表示</strong></li>
+            <li>支払い方法の選択を口頭で明言（「クレジットカードで」等）</li>
+            <li>書面送付先（メールアドレス）の口頭確認・承認</li>
+          </ul>
+          <div class="note">Zoom録画に申込み意思表示が記録されるよう進行する。「では申込みということで」等の曖昧なまとめ方は避ける。</div>
+        </div>
+        <div class="rb rb-ng">
+          <div class="rb-title">🚫 禁止・NG</div>
+          <ul>
+            <li>消費者の明示的同意なく「では申込み手続きを進めます」と進む</li>
+            <li>実際は期間限定でないのに「今日中に決めれば〇万円引き」と告知する（法第21条 不実告知）※実際にその条件で販売するなら合法</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="step">
+    <div class="step-badge b5">4</div>
+    <div class="step-card">
+      <div class="step-head c5">
+        <span class="step-icon">📄</span>
+        <div class="step-info">
+          <div class="step-name">STEP 4｜申込書面の交付（法第18条）</div>
+          <div class="step-sub">申込み受付後、遅滞なく交付する</div>
+        </div>
+        <span class="step-law">特商法 第18条</span>
+      </div>
+      <div class="step-body">
+        <div class="rb rb-doc">
+          <div class="rb-title">📄 申込書面の記載事項</div>
+          <ul>
+            <li>事業者名・住所・電話番号・代表者名</li>
+            <li>担当者氏名・申込み受付日時</li>
+            <li>役務の種類（ビジネス基礎スキル講座 / オンデマンド動画）</li>
+            <li>販売価格：350,000円（税込）</li>
+            <li>支払い方法・時期</li>
+            <li>視聴期間の開始・終了</li>
+            <li>クーリングオフの方法・期間（<strong style="color:#C0392B;">赤字・赤枠</strong>で記載）</li>
+          </ul>
+          <div class="note">⚠ 電磁的方法（PDF等）で交付する場合は消費者の事前承諾が法的要件。</div>
+        </div>
+        <div class="rb rb-must">
+          <div class="rb-title">✅ してもらわなければならない行動</div>
+          <span class="must-label">電磁的交付の承諾（メール or フォーム）</span>
+          <ul>
+            <li>メール・PDFでの書面受領に同意する旨の<strong>返信メールまたはフォーム送信</strong></li>
+            <li>書面受領後「受領しました」の<strong>確認返信または既読確認</strong></li>
+          </ul>
+          <div class="note">承諾なく電磁的交付のみで済ませると法第18条違反になりうる。承諾記録を保存すること。</div>
+        </div>
+        <div class="rb rb-right">
+          <div class="rb-title">🔵 交付方法の選択肢</div>
+          <ul>
+            <li>書面（郵送）：消費者の承諾不要。</li>
+            <li>電磁的方法（PDF/メール）：消費者の事前承諾が必要。受信記録で受領日が明確。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 5 -->
+  <div class="step">
+    <div class="step-badge b6">5</div>
+    <div class="step-card">
+      <div class="step-head c6">
+        <span class="step-icon">📑</span>
+        <div class="step-info">
+          <div class="step-name">STEP 5｜契約書面の交付（法第19条）← クーリングオフ起算点</div>
+          <div class="step-sub">契約成立後、遅滞なく交付。この書面の受領日が8日間のカウント開始日</div>
+        </div>
+        <span class="step-law">特商法 第19条</span>
+      </div>
+      <div class="step-body">
+        <div class="rb rb-doc">
+          <div class="rb-title">📄 契約書面の記載事項</div>
+          <ul>
+            <li>申込書面の記載事項を全て含む</li>
+            <li>契約締結日（確定日）・担当者氏名</li>
+            <li>中途解約時の返金計算方法・違約金額</li>
+            <li>クーリングオフ条項（<strong style="color:#C0392B;">赤字・赤枠、必須</strong>）</li>
+            <li>クーリングオフ通知先（郵送先・メールアドレス）</li>
+          </ul>
+          <div class="note">⚠ クーリングオフ記載が赤字・赤枠でない場合、期間が進行しない可能性がある。</div>
+        </div>
+        <div class="rb rb-must">
+          <div class="rb-title">✅ してもらわなければならない行動</div>
+          <span class="must-label">受領確認の返信（最重要）</span>
+          <ul>
+            <li>契約書面の<strong>受領確認メール返信またはフォーム送信</strong>（受領日時が確定する）</li>
+            <li>「クーリングオフの説明を理解した」旨の<strong>確認チェックまたは返信</strong></li>
+          </ul>
+          <div class="note">受領確認がクーリングオフ8日間の起算点。未確認のまま期間を進めると事業者のリスクとなる。</div>
+        </div>
+        <div class="rb rb-ng">
+          <div class="rb-title">🚫 禁止・NG</div>
+          <ul>
+            <li>書面交付前にコンテンツへのアクセスを付与する</li>
+            <li>受領確認なしに処理を進める</li>
+            <li>クーリングオフ条項を黒字・本文埋め込みのみで記載する</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 6 -->
+  <div class="step">
+    <div class="step-badge b7">6</div>
+    <div class="step-card">
+      <div class="step-head c7">
+        <span class="step-icon">🛡️</span>
+        <div class="step-info">
+          <div class="step-name">STEP 6｜クーリングオフ期間（法第24条）</div>
+          <div class="step-sub">契約書面受領日を1日目として8日間。この間はサービス開始を保留することを強く推奨</div>
+        </div>
+        <span class="step-law">特商法 第24条</span>
+      </div>
+      <div class="co-box">
+        <div class="co-days">
+          <div class="num">8</div>
+          <div class="unit">日間</div>
+          <div class="label">書面受領日が1日目</div>
+        </div>
+        <div class="co-detail">
+          <h4>クーリングオフ行使の要件</h4>
+          <div class="co-grid">
+            <div class="co-k">行使方法</div>
+            <div class="co-v">書面またはメール等の電磁的記録。口頭のみ不可。</div>
+            <div class="co-k">効果</div>
+            <div class="co-v">契約解除。損害賠償・違約金の請求は不可。支払済み金額は全額返金。</div>
+            <div class="co-k">35万円の場合</div>
+            <div class="co-v">支払済み代金を全額返金。一部控除は不可。</div>
+            <div class="co-k">適用除外</div>
+            <div class="co-v">オンデマンド動画は消耗品ではないため視聴済みでも原則適用。</div>
+          </div>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="rb rb-must">
+          <div class="rb-title">✅ してもらわなければならない行動（解約希望時）</div>
+          <span class="must-label">書面またはメールでの通知送信</span>
+          <ul>
+            <li><strong>書面（特定記録郵便推奨）またはメールで通知送信</strong></li>
+            <li>継続意思の場合は行動不要。8日経過で契約自動確定。</li>
+          </ul>
+          <div class="note">通知書コピー・送信記録の保管をユーザーに案内することを推奨。</div>
+        </div>
+        <div class="rb rb-ng">
+          <div class="rb-title">🚫 事業者の禁止行為（期間中）</div>
+          <ul>
+            <li>「クーリングオフはできません」と虚偽説明</li>
+            <li>クーリングオフ通知の受け取り拒否</li>
+            <li>期間中のコンテンツ開放・利用開始</li>
+            <li>期間中の追加フォローアップ営業</li>
+          </ul>
+          <div class="note">妨害行為は行政処分・刑事罰の対象。</div>
+        </div>
+        <div class="rb rb-right">
+          <div class="rb-title">🔵 事業者の推奨対応</div>
+          <ul>
+            <li>コンテンツへのアクセス付与は9日目以降に行う</li>
+            <li>クーリングオフ通知が届いた場合：速やかに返金処理</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 7 -->
+  <div class="step">
+    <div class="step-badge b8">確</div>
+    <div class="step-card">
+      <div class="step-head c8">
+        <span class="step-icon">▶️</span>
+        <div class="step-info">
+          <div class="step-name">STEP 7｜クーリングオフ期間終了 → サービス開始</div>
+          <div class="step-sub">書面受領日から9日目以降にアクセス付与・受講開始</div>
+        </div>
+        <span class="step-law">特商法 第25条・消費者契約法</span>
+      </div>
+      <div class="step-body">
+        <div class="rb rb-must">
+          <div class="rb-title">✅ してもらわなければならない行動</div>
+          <span class="must-label">利用規約への同意・受講開始確認</span>
+          <ul>
+            <li>利用規約・プライバシーポリシーへの<strong>同意チェック送信</strong></li>
+            <li>アカウント設定（パスワード設定等）の完了</li>
+            <li>「受講を開始しました」の<strong>確認ボタン押下またはメール返信</strong></li>
+          </ul>
+          <div class="note">受講開始日の記録が途中解約時の返金計算の起点になる。</div>
+        </div>
+        <div class="rb rb-explain">
+          <div class="rb-title">📘 サービス開始後も残る義務</div>
+          <ul>
+            <li>中途解約への対応（違約金は実損害相当を超えてはならない）</li>
+            <li>返金方針の明文化（解約規定で規定した計算方式に従う）</li>
+            <li>個人情報の適切な管理・目的外利用禁止</li>
+          </ul>
+        </div>
+        <div class="rb rb-right">
+          <div class="rb-title">🔵 損害賠償の上限（法第25条）</div>
+          <ul>
+            <li>役務提供済み分：提供済み役務の対価相当額のみ</li>
+            <li>35万円の場合：解約規定は弁護士レビューを推奨</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /timeline -->
+
+<div class="footer">
+  <strong>対象サービス：</strong>35万円 ビジネス基礎スキル講座（ロジカルシンキング・タスクマネジメント・コミュニケーション・AI活用）オンデマンド動画、Zoom説明会経由クロージング<br>
+  <strong>出典：</strong>消費者庁「特定商取引法ガイド」https://www.no-trouble.caa.go.jp/what/telemarketing/ ／ 特定商取引に関する法律 第16〜25条<br>
+  <strong>注意：</strong>本資料は法令・公式ガイドに基づく整理です。個別案件への適用は弁護士等の専門家にご確認ください。2026年4月。
+</div>
+
+</body>
+</html>
