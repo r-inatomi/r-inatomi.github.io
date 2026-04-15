@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google Sheets MCP 動作検証レポート</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+  background: #ECEEF2;
+  color: #1a1a1a;
+  padding: 20px 16px;
+  font-size: 14px;
+}
+.back-link { display: inline-block; margin-bottom: 14px; font-size: 13px; color: #1E2761; text-decoration: none; font-weight: 600; }
+.back-link:hover { text-decoration: underline; }
+
+/* ── ヘッダー ── */
+.page-header {
+  background: linear-gradient(135deg, #1E2761 0%, #364FC7 100%);
+  color: #fff;
+  border-radius: 14px;
+  padding: 22px 24px;
+  margin-bottom: 20px;
+}
+.tags { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+.tag {
+  font-size: 11px; font-weight: 700;
+  padding: 3px 10px; border-radius: 20px;
+  background: rgba(255,255,255,.18); color: #fff;
+}
+.tag.green { background: #2d8a4e; }
+.tag.orange { background: #E07B27; }
+.page-header h1 { font-size: 18px; font-weight: 800; line-height: 1.35; margin-bottom: 6px; }
+.page-header p  { font-size: 13px; color: #CADCFC; line-height: 1.65; }
+
+/* ── セクション ── */
+.section {
+  background: #fff;
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+}
+.section-title {
+  font-size: 15px; font-weight: 800; color: #1E2761;
+  border-left: 4px solid #1E2761;
+  padding-left: 10px;
+  margin-bottom: 14px;
+}
+.section-title .num {
+  font-size: 11px; font-weight: 700;
+  background: #1E2761; color: #fff;
+  padding: 1px 7px; border-radius: 10px;
+  margin-right: 6px;
+}
+
+/* ── ステップカード ── */
+.steps { display: flex; flex-direction: column; gap: 10px; }
+.step {
+  display: flex; align-items: flex-start; gap: 12px;
+  background: #f7f8fc; border-radius: 10px; padding: 12px 14px;
+}
+.step-num {
+  min-width: 26px; height: 26px;
+  background: #1E2761; color: #fff;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 800; flex-shrink: 0;
+}
+.step-body { flex: 1; }
+.step-body .label { font-size: 13px; font-weight: 700; color: #1E2761; margin-bottom: 3px; }
+.step-body .detail { font-size: 12px; color: #555; line-height: 1.6; }
+.step-body code {
+  font-family: monospace; font-size: 11px;
+  background: #e8eaf0; padding: 1px 5px; border-radius: 4px; color: #1E2761;
+}
+
+/* ── 突合テーブル ── */
+.match-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 10px; }
+.match-table th {
+  background: #1E2761; color: #fff;
+  padding: 8px 10px; text-align: left; font-size: 11px; font-weight: 700;
+}
+.match-table th:first-child { border-radius: 8px 0 0 0; }
+.match-table th:last-child { border-radius: 0 8px 0 0; }
+.match-table td { padding: 8px 10px; border-bottom: 1px solid #eee; }
+.match-table tr:last-child td { border-bottom: none; }
+.match-table tr:nth-child(even) td { background: #f7f8fc; }
+.badge {
+  display: inline-block; font-size: 11px; font-weight: 700;
+  padding: 2px 8px; border-radius: 10px;
+}
+.badge.ok { background: #d1fae5; color: #065f46; }
+.badge.ng { background: #fee2e2; color: #991b1b; }
+.yure-type { font-size: 11px; color: #666; }
+
+/* ── 精度サマリー ── */
+.score-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px;
+}
+@media (max-width: 480px) { .score-grid { grid-template-columns: repeat(2, 1fr); } }
+.score-card {
+  background: #f7f8fc; border-radius: 10px; padding: 14px 12px; text-align: center;
+  border-top: 3px solid #1E2761;
+}
+.score-card .num { font-size: 28px; font-weight: 800; color: #1E2761; }
+.score-card .label { font-size: 11px; color: #666; margin-top: 3px; }
+
+/* ── 考察 ── */
+.insight-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.insight-list li {
+  font-size: 13px; line-height: 1.7; padding: 10px 14px;
+  background: #f7f8fc; border-radius: 8px;
+  border-left: 3px solid #364FC7;
+}
+.insight-list li .icon { margin-right: 6px; }
+.caution {
+  background: #fff8e1; border-radius: 8px; padding: 12px 14px;
+  font-size: 12px; color: #7a5800; line-height: 1.7;
+  border-left: 3px solid #f59e0b; margin-top: 12px;
+}
+</style>
+</head>
+<body>
+
+<a class="back-link" href="./">← 資料一覧に戻る</a>
+
+<div class="page-header">
+  <div class="tags">
+    <span class="tag">MCP検証</span>
+    <span class="tag green">Google Sheets</span>
+    <span class="tag green">Google Drive</span>
+    <span class="tag orange">名寄せ</span>
+  </div>
+  <h1>Google Sheets MCP 動作検証レポート</h1>
+  <p>Claude Code から Google Drive / Sheets をMCP経由で操作し、架空データ2シートを作成・突合した際の操作記録と精度評価。2026年4月15日実施。</p>
+</div>
+
+<!-- ── Section 1: 作業内容 ── -->
+<div class="section">
+  <div class="section-title"><span class="num">01</span>実施内容・操作ステップ</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="label">Google Drive にフォルダ作成</div>
+        <div class="detail">マイドライブ直下に <code>Claude Code</code> フォルダを新規作成。MCP <code>create_file</code>（mimeType: folder）で実行。</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="label">「住所録」スプレッドシート作成（100行）</div>
+        <div class="detail">上記フォルダ内に <code>住所録</code> を作成。架空の氏名・郵便番号・都道府県・市区町村・番地・電話番号・メールアドレスを7列×101行（ヘッダー含む）で一括投入。</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="label">「取引先一覧」スプレッドシート作成（10行）</div>
+        <div class="detail">同フォルダ内に <code>取引先一覧</code> を作成。住所録から抜粋した10名に架空の銀行口座情報（銀行名・支店名・口座種別・口座番号）を付与。氏名表記は意図的に揺らせた（敬称・スペース・法人略称など）。</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <div class="label">両シートを読み取り・名寄せ突合</div>
+        <div class="detail">2ファイルを <code>sheets_read_values</code> で取得し、表記揺れを無視して氏名突合。一致した行の住所録 H〜K列に口座情報を書き込み。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Section 2: 突合結果詳細 ── -->
+<div class="section">
+  <div class="section-title"><span class="num">02</span>突合結果（10件）</div>
+  <table class="match-table">
+    <thead>
+      <tr>
+        <th>住所録 氏名</th>
+        <th>取引先一覧 氏名</th>
+        <th>揺れの種別</th>
+        <th>判定</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>田中 一郎</td>
+        <td>田中一郎　様</td>
+        <td class="yure-type">スペース削除・敬称</td>
+        <td><span class="badge ok">一致</span></td>
+      </tr>
+      <tr>
+        <td>鈴木 花子</td>
+        <td>鈴木 花子（占い師）</td>
+        <td class="yure-type">括弧内付加情報</td>
+        <td><span class="badge ok">一致</span></td>
+      </tr>
+      <tr>
+        <td>中村 由美</td>
+        <td>中村由美</td>
+        <td class="yure-type">姓名間スペース削除</td>
+        <td><span class="badge ok">一致</span></td>
+      </tr>
+      <tr>
+        <td>加藤 奈々</td>
+        <td>加藤 奈々</td>
+        <td class="yure-type">揺れなし</td>
+        <td><span class="badge ok">一致</span></td>
+      </tr>
+      <tr>
+        <td>木村 拓也</td>
+        <td>木村　拓也（全角スペース）</td>
+        <td class="yure-type">半角→全角スペース</td>
+        <td><span class="badge ok">一致</span></td>
+      </tr>
+      <tr>
+        <td>斎藤 裕</td>
+        <td>斎藤 裕　様</td>
+        <td class="yure-type">末尾敬称</td>
+        <td><span class="badge ok">一致</span></td>
+      </tr>
+      <tr>
+        <td>宮本 亜希</td>
+        <td>宮本 亜希　君</td>
+        <td class="yure-type">末尾敬称（君）</td>
+        <td><span class="badge ok">一致</span></td>
+      </tr>
+      <tr>
+        <td>大野 真緒</td>
+        <td>大野 真緒</td>
+        <td class="yure-type">揺れなし</td>
+        <td><span class="badge ok">一致</span></td>
+      </tr>
+      <tr>
+        <td>株式会社ユデイモマニア</td>
+        <td>（株）ユデイモマニア</td>
+        <td class="yure-type">株式会社→（株）省略</td>
+        <td><span class="badge ok">一致</span></td>
+      </tr>
+      <tr>
+        <td>高橋 集介</td>
+        <td>高橋 雄介</td>
+        <td class="yure-type">名の漢字が別字</td>
+        <td><span class="badge ng">除外</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ── Section 3: 精度評価 ── -->
+<div class="section">
+  <div class="section-title"><span class="num">03</span>突合精度と考察</div>
+  <div class="score-grid">
+    <div class="score-card">
+      <div class="num">10</div>
+      <div class="label">総突合対象</div>
+    </div>
+    <div class="score-card">
+      <div class="num">9</div>
+      <div class="label">一致（書込完了）</div>
+    </div>
+    <div class="score-card">
+      <div class="num">1</div>
+      <div class="label">除外（別人判定）</div>
+    </div>
+  </div>
+
+  <ul class="insight-list">
+    <li><span class="icon">✅</span><strong>処理できた揺れ：</strong>姓名間スペースの有無・全半角・末尾敬称（様/君）・括弧内付加情報・法人略称（株式会社→(株)）。いずれも正規化後の文字列比較で正確に突合。</li>
+    <li><span class="icon">🔍</span><strong>除外の妥当性：</strong>「高橋 集介」vs「高橋 雄介」は異なる漢字を使った別人。表記揺れではなくデータ不整合であり、除外は正しい判断。ファジーマッチ（類似度スコア）を使えば誤マッチするリスクがある箇所。</li>
+    <li><span class="icon">⚠️</span><strong>同姓同名リスク：</strong>今回は100件規模のため同姓同名なし。実運用では複数ヒットへの対処ロジックが必要。郵便番号・電話番号などの補助キーとの組み合わせ突合が推奨。</li>
+    <li><span class="icon">🛠</span><strong>MCPの挙動：</strong>シート名がデフォルト「Sheet1」ではなく「シート1」だったため、初回の範囲指定でエラー発生。<code>get_spreadsheet_info</code> でシート名を事前確認するフローが必須。</li>
+  </ul>
+
+  <div class="caution">
+    <strong>注意：</strong>本検証で使用したデータ（氏名・住所・口座番号）はすべて架空です。実在の個人・法人・金融機関とは無関係です。
+  </div>
+</div>
+
+</body>
+</html>
