@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Google Sheets MCP 動作検証レポート</title>
+<title>Claude × Googleスプレッドシート 操作実証レポート</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
@@ -33,7 +33,7 @@ body {
 .tag.green { background: #2d8a4e; }
 .tag.orange { background: #E07B27; }
 .page-header h1 { font-size: 18px; font-weight: 800; line-height: 1.35; margin-bottom: 6px; }
-.page-header p  { font-size: 13px; color: #CADCFC; line-height: 1.65; }
+.page-header p  { font-size: 13px; color: #CADCFC; line-height: 1.75; }
 
 /* ── セクション ── */
 .section {
@@ -56,27 +56,35 @@ body {
   margin-right: 6px;
 }
 
-/* ── ステップカード ── */
+/* ── できたこと（ステップ） ── */
 .steps { display: flex; flex-direction: column; gap: 10px; }
 .step {
   display: flex; align-items: flex-start; gap: 12px;
   background: #f7f8fc; border-radius: 10px; padding: 12px 14px;
 }
-.step-num {
-  min-width: 26px; height: 26px;
+.step-icon {
+  min-width: 36px; height: 36px;
   background: #1E2761; color: #fff;
-  border-radius: 50%; display: flex; align-items: center; justify-content: center;
-  font-size: 12px; font-weight: 800; flex-shrink: 0;
+  border-radius: 10px; display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
 }
-.step-body { flex: 1; }
-.step-body .label { font-size: 13px; font-weight: 700; color: #1E2761; margin-bottom: 3px; }
-.step-body .detail { font-size: 12px; color: #555; line-height: 1.6; }
-.step-body code {
-  font-family: monospace; font-size: 11px;
-  background: #e8eaf0; padding: 1px 5px; border-radius: 4px; color: #1E2761;
-}
+.step-body .label { font-size: 13px; font-weight: 700; color: #1E2761; margin-bottom: 4px; }
+.step-body .detail { font-size: 12px; color: #555; line-height: 1.7; }
 
-/* ── 突合テーブル ── */
+/* ── ポイントカード ── */
+.point-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 0;
+}
+@media (max-width: 480px) { .point-grid { grid-template-columns: 1fr; } }
+.point-card {
+  background: #f7f8fc; border-radius: 10px; padding: 14px 14px;
+  border-top: 3px solid #364FC7;
+}
+.point-card .icon { font-size: 22px; margin-bottom: 6px; }
+.point-card .title { font-size: 13px; font-weight: 700; color: #1E2761; margin-bottom: 5px; }
+.point-card .body { font-size: 12px; color: #555; line-height: 1.7; }
+
+/* ── 名前照合テーブル ── */
 .match-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 10px; }
 .match-table th {
   background: #1E2761; color: #fff;
@@ -84,7 +92,7 @@ body {
 }
 .match-table th:first-child { border-radius: 8px 0 0 0; }
 .match-table th:last-child { border-radius: 0 8px 0 0; }
-.match-table td { padding: 8px 10px; border-bottom: 1px solid #eee; }
+.match-table td { padding: 9px 10px; border-bottom: 1px solid #eee; vertical-align: top; }
 .match-table tr:last-child td { border-bottom: none; }
 .match-table tr:nth-child(even) td { background: #f7f8fc; }
 .badge {
@@ -93,33 +101,27 @@ body {
 }
 .badge.ok { background: #d1fae5; color: #065f46; }
 .badge.ng { background: #fee2e2; color: #991b1b; }
-.yure-type { font-size: 11px; color: #666; }
+.sub { font-size: 11px; color: #888; margin-top: 2px; }
 
-/* ── 精度サマリー ── */
-.score-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px;
-}
-@media (max-width: 480px) { .score-grid { grid-template-columns: repeat(2, 1fr); } }
-.score-card {
-  background: #f7f8fc; border-radius: 10px; padding: 14px 12px; text-align: center;
-  border-top: 3px solid #1E2761;
-}
-.score-card .num { font-size: 28px; font-weight: 800; color: #1E2761; }
-.score-card .label { font-size: 11px; color: #666; margin-top: 3px; }
-
-/* ── 考察 ── */
-.insight-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-.insight-list li {
-  font-size: 13px; line-height: 1.7; padding: 10px 14px;
+/* ── まとめBOX ── */
+.summary-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.summary-list li {
+  font-size: 13px; line-height: 1.75; padding: 11px 14px;
   background: #f7f8fc; border-radius: 8px;
   border-left: 3px solid #364FC7;
 }
-.insight-list li .icon { margin-right: 6px; }
-.caution {
+.note {
   background: #fff8e1; border-radius: 8px; padding: 12px 14px;
-  font-size: 12px; color: #7a5800; line-height: 1.7;
+  font-size: 12px; color: #7a5800; line-height: 1.75;
   border-left: 3px solid #f59e0b; margin-top: 12px;
 }
+
+/* ── 今回やっていない帯 ── */
+.not-done {
+  background: #f0f0f5; border-radius: 8px; padding: 12px 14px;
+  font-size: 12px; color: #555; line-height: 1.75; margin-top: 10px;
+}
+.not-done strong { color: #1E2761; }
 </style>
 </head>
 <body>
@@ -128,155 +130,172 @@ body {
 
 <div class="page-header">
   <div class="tags">
-    <span class="tag">MCP検証</span>
-    <span class="tag green">Google Sheets</span>
-    <span class="tag green">Google Drive</span>
-    <span class="tag orange">名寄せ</span>
+    <span class="tag">実証レポート</span>
+    <span class="tag green">Googleスプレッドシート</span>
+    <span class="tag green">Googleドライブ</span>
+    <span class="tag orange">名前照合</span>
   </div>
-  <h1>Google Sheets MCP 動作検証レポート</h1>
-  <p>Claude Code から Google Drive / Sheets をMCP経由で操作し、架空データ2シートを作成・突合した際の操作記録と精度評価。2026年4月15日実施。</p>
+  <h1>Claude がスプレッドシートを直接操作する<br>——何ができて、どこまで使えるか</h1>
+  <p>プログラミングの知識なしで、会話するだけでGoogleドライブにファイルを作り、データを入れ、2つのファイルを照合できるか試した記録。2026年4月15日実施。</p>
 </div>
 
-<!-- ── Section 1: 作業内容 ── -->
+<!-- ── Section 1: 今回試したこと ── -->
 <div class="section">
-  <div class="section-title"><span class="num">01</span>実施内容・操作ステップ</div>
+  <div class="section-title"><span class="num">01</span>今回試したこと</div>
   <div class="steps">
     <div class="step">
-      <div class="step-num">1</div>
+      <div class="step-icon">📁</div>
       <div class="step-body">
-        <div class="label">Google Drive にフォルダ作成</div>
-        <div class="detail">マイドライブ直下に <code>Claude Code</code> フォルダを新規作成。MCP <code>create_file</code>（mimeType: folder）で実行。</div>
+        <div class="label">Googleドライブにフォルダを作った</div>
+        <div class="detail">「Claude Code というフォルダをマイドライブ直下に作って」と指示するだけで、Googleドライブ上にフォルダが作成された。</div>
       </div>
     </div>
     <div class="step">
-      <div class="step-num">2</div>
+      <div class="step-icon">📋</div>
       <div class="step-body">
-        <div class="label">「住所録」スプレッドシート作成（100行）</div>
-        <div class="detail">上記フォルダ内に <code>住所録</code> を作成。架空の氏名・郵便番号・都道府県・市区町村・番地・電話番号・メールアドレスを7列×101行（ヘッダー含む）で一括投入。</div>
+        <div class="label">架空の住所録を100行作った</div>
+        <div class="detail">「架空の住所録を100行作って」と指示。氏名・郵便番号・都道府県・市区町村・番地・電話番号・メールアドレスの7列、100行分のデータが自動で入力された。</div>
       </div>
     </div>
     <div class="step">
-      <div class="step-num">3</div>
+      <div class="step-icon">🏦</div>
       <div class="step-body">
-        <div class="label">「取引先一覧」スプレッドシート作成（10行）</div>
-        <div class="detail">同フォルダ内に <code>取引先一覧</code> を作成。住所録から抜粋した10名に架空の銀行口座情報（銀行名・支店名・口座種別・口座番号）を付与。氏名表記は意図的に揺らせた（敬称・スペース・法人略称など）。</div>
+        <div class="label">別ファイルに取引先＋口座情報を作った</div>
+        <div class="detail">同じフォルダに「取引先一覧」ファイルを別途作成。住所録の100人のうち10人を抽出し、架空の銀行口座情報（銀行名・支店名・口座種別・口座番号）を追加した。</div>
       </div>
     </div>
     <div class="step">
-      <div class="step-num">4</div>
+      <div class="step-icon">🔗</div>
       <div class="step-body">
-        <div class="label">両シートを読み取り・名寄せ突合</div>
-        <div class="detail">2ファイルを <code>sheets_read_values</code> で取得し、表記揺れを無視して氏名突合。一致した行の住所録 H〜K列に口座情報を書き込み。</div>
+        <div class="label">2つのファイルを照合して、口座情報を住所録に転記した</div>
+        <div class="detail">「住所録と取引先一覧を突き合わせて、一致する人の口座情報を住所録に追記して」と指示。名前のスペースの有無や敬称（様・君）の違いも自動で読み飛ばして照合し、該当行に口座情報を書き込んだ。</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ── Section 2: 突合結果詳細 ── -->
+<!-- ── Section 2: 名前照合の結果 ── -->
 <div class="section">
-  <div class="section-title"><span class="num">02</span>突合結果（10件）</div>
+  <div class="section-title"><span class="num">02</span>名前の表記が違っていても照合できたか</div>
+  <p style="font-size:12px;color:#555;line-height:1.75;margin-bottom:12px;">取引先一覧の名前は、意図的に表記を揺らして作成した（スペースなし・敬称あり・法人略称など）。Claudeがどこまで「同一人物」と判断できるか確認した。</p>
   <table class="match-table">
     <thead>
       <tr>
-        <th>住所録 氏名</th>
-        <th>取引先一覧 氏名</th>
-        <th>揺れの種別</th>
+        <th>住所録の表記</th>
+        <th>取引先一覧の表記</th>
+        <th>違いの内容</th>
         <th>判定</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>田中 一郎</td>
-        <td>田中一郎　様</td>
-        <td class="yure-type">スペース削除・敬称</td>
-        <td><span class="badge ok">一致</span></td>
+        <td>田中一郎　様<div class="sub">（敬称あり）</div></td>
+        <td>スペースなし＋「様」</td>
+        <td><span class="badge ok">同一人物</span></td>
       </tr>
       <tr>
         <td>鈴木 花子</td>
-        <td>鈴木 花子（占い師）</td>
-        <td class="yure-type">括弧内付加情報</td>
-        <td><span class="badge ok">一致</span></td>
+        <td>鈴木 花子（占い師）<div class="sub">（括弧内に別情報）</div></td>
+        <td>名前以外の情報が付いている</td>
+        <td><span class="badge ok">同一人物</span></td>
       </tr>
       <tr>
         <td>中村 由美</td>
-        <td>中村由美</td>
-        <td class="yure-type">姓名間スペース削除</td>
-        <td><span class="badge ok">一致</span></td>
-      </tr>
-      <tr>
-        <td>加藤 奈々</td>
-        <td>加藤 奈々</td>
-        <td class="yure-type">揺れなし</td>
-        <td><span class="badge ok">一致</span></td>
+        <td>中村由美<div class="sub">（スペースなし）</div></td>
+        <td>姓と名の間にスペースなし</td>
+        <td><span class="badge ok">同一人物</span></td>
       </tr>
       <tr>
         <td>木村 拓也</td>
-        <td>木村　拓也（全角スペース）</td>
-        <td class="yure-type">半角→全角スペース</td>
-        <td><span class="badge ok">一致</span></td>
+        <td>木村　拓也<div class="sub">（全角スペース）</div></td>
+        <td>半角→全角スペース</td>
+        <td><span class="badge ok">同一人物</span></td>
       </tr>
       <tr>
         <td>斎藤 裕</td>
-        <td>斎藤 裕　様</td>
-        <td class="yure-type">末尾敬称</td>
-        <td><span class="badge ok">一致</span></td>
+        <td>斎藤 裕　様<div class="sub">（敬称あり）</div></td>
+        <td>末尾に「様」</td>
+        <td><span class="badge ok">同一人物</span></td>
       </tr>
       <tr>
         <td>宮本 亜希</td>
-        <td>宮本 亜希　君</td>
-        <td class="yure-type">末尾敬称（君）</td>
-        <td><span class="badge ok">一致</span></td>
+        <td>宮本 亜希　君<div class="sub">（敬称あり）</div></td>
+        <td>末尾に「君」</td>
+        <td><span class="badge ok">同一人物</span></td>
+      </tr>
+      <tr>
+        <td>加藤 奈々</td>
+        <td>加藤 奈々<div class="sub">（同じ表記）</div></td>
+        <td>違いなし</td>
+        <td><span class="badge ok">同一人物</span></td>
       </tr>
       <tr>
         <td>大野 真緒</td>
-        <td>大野 真緒</td>
-        <td class="yure-type">揺れなし</td>
-        <td><span class="badge ok">一致</span></td>
+        <td>大野 真緒<div class="sub">（同じ表記）</div></td>
+        <td>違いなし</td>
+        <td><span class="badge ok">同一人物</span></td>
       </tr>
       <tr>
         <td>株式会社ユデイモマニア</td>
-        <td>（株）ユデイモマニア</td>
-        <td class="yure-type">株式会社→（株）省略</td>
-        <td><span class="badge ok">一致</span></td>
+        <td>（株）ユデイモマニア<div class="sub">（法人略称）</div></td>
+        <td>「株式会社」→「（株）」</td>
+        <td><span class="badge ok">同一人物</span></td>
       </tr>
       <tr>
-        <td>高橋 集介</td>
-        <td>高橋 雄介</td>
-        <td class="yure-type">名の漢字が別字</td>
-        <td><span class="badge ng">除外</span></td>
+        <td>高橋 <strong>集</strong>介</td>
+        <td>高橋 <strong>雄</strong>介<div class="sub">（漢字が別の字）</div></td>
+        <td>名前の漢字が異なる</td>
+        <td><span class="badge ng">別人として除外</span></td>
       </tr>
     </tbody>
   </table>
+  <div class="note" style="margin-top:14px;">
+    10件中9件が正しく照合・転記された。除外した1件（高橋 集介 vs 高橋 雄介）は、スペースや敬称の違いではなく<strong>漢字そのものが別の字</strong>なので、別人として扱ったのは正しい判断。
+  </div>
 </div>
 
-<!-- ── Section 3: 精度評価 ── -->
+<!-- ── Section 3: 何がポイントか ── -->
 <div class="section">
-  <div class="section-title"><span class="num">03</span>突合精度と考察</div>
-  <div class="score-grid">
-    <div class="score-card">
-      <div class="num">10</div>
-      <div class="label">総突合対象</div>
+  <div class="section-title"><span class="num">03</span>何がポイントか</div>
+  <div class="point-grid">
+    <div class="point-card">
+      <div class="icon">💬</div>
+      <div class="title">操作はすべて「会話」だけ</div>
+      <div class="body">「住所録を100行作って」「2つのファイルを照合して転記して」——指示はすべて日本語の会話のみ。ファイルを手動で開く操作はゼロ。</div>
     </div>
-    <div class="score-card">
-      <div class="num">9</div>
-      <div class="label">一致（書込完了）</div>
+    <div class="point-card">
+      <div class="icon">🔄</div>
+      <div class="title">2ファイルをまたいで操作</div>
+      <div class="body">別々のスプレッドシートを読み込み、照合して、片方に書き戻す——複数ファイルにまたがる作業をワンステップで完了。</div>
     </div>
-    <div class="score-card">
-      <div class="num">1</div>
-      <div class="label">除外（別人判定）</div>
+    <div class="point-card">
+      <div class="icon">🧠</div>
+      <div class="title">「ゆらぎ」を読み飛ばして照合</div>
+      <div class="body">スペース・敬称・法人略称など、人間が目で合わせるような判断も自動で処理。「無視して突合して」という指示を正確に実行。</div>
+    </div>
+    <div class="point-card">
+      <div class="icon">🚫</div>
+      <div class="title">別人は別人として除外</div>
+      <div class="body">「ゆらぎを無視」といっても、漢字が異なる別人まで無理にマッチさせることはなかった。判断の根拠も説明できる。</div>
     </div>
   </div>
 
-  <ul class="insight-list">
-    <li><span class="icon">✅</span><strong>処理できた揺れ：</strong>姓名間スペースの有無・全半角・末尾敬称（様/君）・括弧内付加情報・法人略称（株式会社→(株)）。いずれも正規化後の文字列比較で正確に突合。</li>
-    <li><span class="icon">🔍</span><strong>除外の妥当性：</strong>「高橋 集介」vs「高橋 雄介」は異なる漢字を使った別人。表記揺れではなくデータ不整合であり、除外は正しい判断。ファジーマッチ（類似度スコア）を使えば誤マッチするリスクがある箇所。</li>
-    <li><span class="icon">⚠️</span><strong>同姓同名リスク：</strong>今回は100件規模のため同姓同名なし。実運用では複数ヒットへの対処ロジックが必要。郵便番号・電話番号などの補助キーとの組み合わせ突合が推奨。</li>
-    <li><span class="icon">🛠</span><strong>MCPの挙動：</strong>シート名がデフォルト「Sheet1」ではなく「シート1」だったため、初回の範囲指定でエラー発生。<code>get_spreadsheet_info</code> でシート名を事前確認するフローが必須。</li>
+  <div class="not-done">
+    <strong>今回やっていないこと（拡張できること）：</strong><br>
+    既存ファイルの読み込み・更新 / 条件付き書式の設定 / フォームと連動した自動入力 / 定期的な自動実行（スケジュール実行） など。今回は「作る・照合する・転記する」の基本3操作を検証した。
+  </div>
+</div>
+
+<!-- ── Section 4: まとめ ── -->
+<div class="section">
+  <div class="section-title"><span class="num">04</span>まとめ：どんな用途に使えるか</div>
+  <ul class="summary-list">
+    <li>📥 <strong>データ入力の代行：</strong>ひな形を渡して「100件分のダミーデータを入れて」「条件に合うデータを別シートに抜き出して」といった作業をそのまま依頼できる。</li>
+    <li>🔍 <strong>名寄せ・突合：</strong>顧客名簿と請求データなど、別々に管理しているファイルを照合して転記する作業。人間が目視で行うと抜け漏れが出やすい作業を正確に処理できる。</li>
+    <li>📂 <strong>ファイル整理：</strong>フォルダ作成・ファイル作成・移動など、Googleドライブの操作を会話で指示できる。「○○というフォルダを作ってこのファイルを入れて」で完結。</li>
+    <li>⚠️ <strong>注意点：</strong>100件・2ファイル規模では問題なく動作したが、大量データ（数千行〜）や複雑な照合ロジックが必要な場合は、事前に動作確認を推奨。</li>
   </ul>
-
-  <div class="caution">
-    <strong>注意：</strong>本検証で使用したデータ（氏名・住所・口座番号）はすべて架空です。実在の個人・法人・金融機関とは無関係です。
-  </div>
 </div>
 
 </body>
