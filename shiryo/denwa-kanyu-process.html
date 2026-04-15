@@ -235,6 +235,119 @@ body {
   font-size: 13px; color: #777; line-height: 1.8;
   box-shadow: 0 2px 8px rgba(0,0,0,.05);
 }
+
+/* ── タブナビ ── */
+.tab-nav {
+  display: flex; gap: 6px;
+  margin-bottom: 14px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+}
+.tab-btn {
+  flex: 1; padding: 8px 10px;
+  border: none; border-radius: 8px;
+  font-size: 13px; font-weight: 700;
+  cursor: pointer; background: transparent;
+  color: #666; transition: all .18s;
+}
+.tab-btn.active {
+  background: #1E2761; color: #fff;
+}
+.tab-btn:not(.active):hover { background: #ECEEF2; }
+
+/* ── タブパネル ── */
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ── ステップTOC ── */
+.step-toc {
+  display: flex; gap: 4px;
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  padding: 8px 4px 10px;
+  margin-bottom: 12px;
+  scrollbar-width: none;
+}
+.step-toc::-webkit-scrollbar { display: none; }
+.step-toc a {
+  flex-shrink: 0;
+  display: flex; flex-direction: column; align-items: center;
+  text-decoration: none;
+  background: #fff;
+  border-radius: 8px;
+  padding: 4px 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.08);
+  transition: background .15s;
+}
+.step-toc a:hover { background: #1E2761; }
+.step-toc a:hover .toc-num,
+.step-toc a:hover .toc-label { color: #fff; }
+.step-toc .toc-num { font-size: 11px; font-weight: 800; color: #1E2761; line-height: 1; }
+.step-toc .toc-label { font-size: 10px; color: #888; margin-top: 2px; line-height: 1.2; text-align: center; }
+
+/* ── 返金比較パネル ── */
+.refund-intro {
+  background: #fff; border-radius: 12px;
+  padding: 14px 16px; margin-bottom: 14px;
+  font-size: 13px; line-height: 1.7;
+  box-shadow: 0 2px 8px rgba(0,0,0,.05);
+  border-left: 5px solid #1E2761;
+}
+.refund-intro strong { color: #1E2761; }
+.refund-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px; margin-bottom: 14px;
+}
+@media (max-width: 640px) {
+  .refund-grid { grid-template-columns: 1fr; }
+}
+.refund-card {
+  background: #fff; border-radius: 12px;
+  box-shadow: 0 3px 14px rgba(0,0,0,.07);
+  overflow: hidden;
+}
+.refund-card-head {
+  padding: 12px 16px; color: #fff;
+  font-size: 13px; font-weight: 700; line-height: 1.4;
+}
+.refund-card-head .rc-badge {
+  display: inline-block; font-size: 10px; font-weight: 700;
+  padding: 2px 8px; border-radius: 8px;
+  background: rgba(255,255,255,.25); margin-bottom: 6px;
+}
+.rch-blue { background: linear-gradient(135deg, #1E2761, #2563a8); }
+.rch-teal { background: linear-gradient(135deg, #1a7a5e, #27AE60); }
+.refund-section {
+  padding: 10px 14px;
+  border-bottom: 1px solid #f0f0f0;
+}
+.refund-section:last-child { border-bottom: none; }
+.refund-section h4 {
+  font-size: 11px; font-weight: 700; color: #888;
+  letter-spacing: .05em; text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.refund-section p, .refund-section li {
+  font-size: 13px; line-height: 1.65; color: #222;
+}
+.refund-section ul { list-style: none; padding: 0; }
+.refund-section ul li { padding-left: 14px; position: relative; }
+.refund-section ul li::before { content: "›"; position: absolute; left: 0; font-weight: 700; color: #888; }
+.badge-ok { display: inline-block; font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 6px; background: #C6F0D9; color: #0f4f2c; margin-right: 4px; }
+.badge-ng { display: inline-block; font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 6px; background: #FDDCDC; color: #7a1a1a; margin-right: 4px; }
+.badge-caution { display: inline-block; font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 6px; background: #FFF0D6; color: #7a3e00; margin-right: 4px; }
+.refund-implication {
+  background: #f7f4fd; border-radius: 12px;
+  padding: 14px 16px; margin-bottom: 14px;
+  border-left: 5px solid #6D4FC2;
+  box-shadow: 0 2px 8px rgba(0,0,0,.05);
+}
+.refund-implication h3 { font-size: 13px; font-weight: 700; color: #4a2f9e; margin-bottom: 10px; }
+.refund-implication ul { list-style: none; padding: 0; }
+.refund-implication ul li { font-size: 13px; line-height: 1.7; padding-left: 16px; position: relative; margin-bottom: 4px; }
+.refund-implication ul li::before { content: "→"; position: absolute; left: 0; color: #6D4FC2; font-weight: 700; }
 </style>
 </head>
 <body>
@@ -250,6 +363,27 @@ body {
   </div>
   <h1>電話勧誘販売｜勧誘〜契約<br>コンプライアンス・プロセス</h1>
   <p>Zoom説明会を経由してクロージングを行う場合の、各フェーズにおける事業者の義務・禁止事項と、ユーザーに<strong>必ずしてもらわなければならない行動（証跡必須）</strong>を整理したものです。</p>
+</div>
+
+<!-- タブナビ -->
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab('process', this)">📋 プロセス図</button>
+  <button class="tab-btn" onclick="switchTab('refund', this)">💴 返金ルール比較</button>
+</div>
+
+<!-- タブ: プロセス図 -->
+<div id="tab-process" class="tab-panel active">
+
+<!-- ステップ目次 -->
+<div class="step-toc">
+  <a href="#step-0"><span class="toc-num">前</span><span class="toc-label">案内・LP</span></a>
+  <a href="#step-1"><span class="toc-num">1</span><span class="toc-label">Zoom冒頭</span></a>
+  <a href="#step-2"><span class="toc-num">2</span><span class="toc-label">説明会中</span></a>
+  <a href="#step-3"><span class="toc-num">3</span><span class="toc-label">クロージング</span></a>
+  <a href="#step-4"><span class="toc-num">4</span><span class="toc-label">申込書面</span></a>
+  <a href="#step-5"><span class="toc-num">5</span><span class="toc-label">契約書面</span></a>
+  <a href="#step-6"><span class="toc-num">6</span><span class="toc-label">CO期間</span></a>
+  <a href="#step-7"><span class="toc-num">7</span><span class="toc-label">開始後</span></a>
 </div>
 
 <div class="law-summary">
@@ -297,7 +431,7 @@ body {
 <div class="timeline">
 
   <!-- STEP 0 -->
-  <div class="step">
+  <div class="step" id="step-0">
     <div class="step-badge b1">前</div>
     <div class="step-card">
       <div class="step-head c1">
@@ -343,7 +477,7 @@ body {
   </div>
 
   <!-- STEP 1 -->
-  <div class="step">
+  <div class="step" id="step-1">
     <div class="step-badge b2">1</div>
     <div class="step-card">
       <div class="step-head c2">
@@ -386,7 +520,7 @@ body {
   </div>
 
   <!-- STEP 2 -->
-  <div class="step">
+  <div class="step" id="step-2">
     <div class="step-badge b3">2</div>
     <div class="step-card">
       <div class="step-head c3">
@@ -434,7 +568,7 @@ body {
   </div>
 
   <!-- STEP 3 -->
-  <div class="step">
+  <div class="step" id="step-3">
     <div class="step-badge b4">3</div>
     <div class="step-card">
       <div class="step-head c4">
@@ -476,7 +610,7 @@ body {
   </div>
 
   <!-- STEP 4 -->
-  <div class="step">
+  <div class="step" id="step-4">
     <div class="step-badge b5">4</div>
     <div class="step-card">
       <div class="step-head c5">
@@ -522,7 +656,7 @@ body {
   </div>
 
   <!-- STEP 5 -->
-  <div class="step">
+  <div class="step" id="step-5">
     <div class="step-badge b6">5</div>
     <div class="step-card">
       <div class="step-head c6">
@@ -567,7 +701,7 @@ body {
   </div>
 
   <!-- STEP 6 -->
-  <div class="step">
+  <div class="step" id="step-6">
     <div class="step-badge b7">6</div>
     <div class="step-card">
       <div class="step-head c7">
@@ -630,7 +764,7 @@ body {
   </div>
 
   <!-- STEP 7 -->
-  <div class="step">
+  <div class="step" id="step-7">
     <div class="step-badge b8">確</div>
     <div class="step-card">
       <div class="step-head c8">
@@ -674,11 +808,135 @@ body {
 
 </div><!-- /timeline -->
 
+</div><!-- /tab-process -->
+
+<!-- タブ: 返金ルール比較 -->
+<div id="tab-refund" class="tab-panel">
+
+<div class="refund-intro">
+  <strong>このページについて</strong><br>
+  電話勧誘販売（特商法第2章）が適用される前提で、返金・解約ルールの設計が<strong>①特定継続的役務として構築した場合</strong>と<strong>②消費者契約法第10条への対応のみの場合</strong>で何が異なるかを整理する。クーリングオフ（特商法第20条）はいずれの場合も共通して適用される。
+</div>
+
+<div class="refund-grid">
+
+  <!-- カード①: 特定継続的役務として構築 -->
+  <div class="refund-card">
+    <div class="refund-card-head rch-blue">
+      <div class="rc-badge">特商法 第4章 準拠</div><br>
+      特定継続的役務として構築した場合
+    </div>
+    <div class="refund-section">
+      <h4>解約権の性質</h4>
+      <p><span class="badge-ok">法定</span>消費者はいつでも中途解約可能（第49条）。事業者は拒否できない。</p>
+    </div>
+    <div class="refund-section">
+      <h4>損害賠償・違約金の上限</h4>
+      <ul>
+        <li><strong>役務提供前</strong>：2万円 または 申込金額の10%、いずれか低い方</li>
+        <li><strong>役務提供後</strong>：2万円 ＋ 提供済み役務の対価相当額、または残余契約額の10%、いずれか低い方</li>
+        <li>上記は政令で業種別に定められた法定額（PC教室に該当した場合）</li>
+      </ul>
+    </div>
+    <div class="refund-section">
+      <h4>利用規約の設計自由度</h4>
+      <p><span class="badge-ng">低い</span>法定額を超える違約金設定は無効。法律に縛られる。</p>
+    </div>
+    <div class="refund-section">
+      <h4>利用規約への必須記載</h4>
+      <ul>
+        <li>中途解約権が存在する旨（書面への記載義務あり）</li>
+        <li>解約申出先・方法</li>
+        <li>法定計算式に基づく返金額の算定方式</li>
+      </ul>
+    </div>
+    <div class="refund-section">
+      <h4>トラブル時の判断基準</h4>
+      <p><span class="badge-ok">明確</span>条文・政令の法定額で機械的に計算。裁判所の裁量余地が小さい。</p>
+    </div>
+    <div class="refund-section">
+      <h4>事業者のリスク</h4>
+      <ul>
+        <li>解約申出を拒否できないため、高額サービスでも返金対応が義務となる</li>
+        <li>前払金全額受領後に大量解約が発生すると資金繰りリスクがある</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- カード②: 消費者契約法対応のみ -->
+  <div class="refund-card">
+    <div class="refund-card-head rch-teal">
+      <div class="rc-badge">消費者契約法 第9・10条 対応</div><br>
+      特定継続的役務非該当・消費者契約法のみ
+    </div>
+    <div class="refund-section">
+      <h4>解約権の性質</h4>
+      <p><span class="badge-caution">規約次第</span>法定の解約権なし。利用規約の定めによる。ただし「解約不可」の絶対条項は第10条で無効リスク。</p>
+    </div>
+    <div class="refund-section">
+      <h4>損害賠償・違約金の上限</h4>
+      <ul>
+        <li>第9条：「平均的な損害額」を超える部分は無効（具体的な法定額なし）</li>
+        <li>「平均的な損害額」は事業者が実際に被る損害の客観的平均値（裁判所が判断）</li>
+        <li>根拠のない高額違約金は訴訟で無効とされるリスクあり</li>
+      </ul>
+    </div>
+    <div class="refund-section">
+      <h4>利用規約の設計自由度</h4>
+      <p><span class="badge-ok">高い</span>信義則の範囲内で自由に設計可能。返金方式・条件を独自に規定できる。</p>
+    </div>
+    <div class="refund-section">
+      <h4>利用規約への必須記載</h4>
+      <ul>
+        <li>解約申出先・方法・受付期限</li>
+        <li>返金額の算定方式（按分・一部返金・返金なし等）</li>
+        <li>違約金を設定する場合：実損根拠を明示</li>
+        <li>損害賠償責任の範囲（第8条：全部免除条項は無効）</li>
+      </ul>
+    </div>
+    <div class="refund-section">
+      <h4>トラブル時の判断基準</h4>
+      <p><span class="badge-caution">不明確</span>「平均的な損害額」の解釈は裁判所次第。規約の文言次第で結論が変わる。</p>
+    </div>
+    <div class="refund-section">
+      <h4>事業者のリスク</h4>
+      <ul>
+        <li>規定が曖昧だと消費者庁指導・訴訟リスクが残る</li>
+        <li>「アクセス権付与 = 全役務提供済み」解釈が認められるか不確実</li>
+        <li>弁護士レビューなしで利用規約を公開すると後から問題になるケースがある</li>
+      </ul>
+    </div>
+  </div>
+
+</div><!-- /refund-grid -->
+
+<div class="refund-implication">
+  <h3>このサービス（35万円・オンデマンド動画）への示唆</h3>
+  <ul>
+    <li>特定継続的役務に<strong>自発的に準拠する</strong>という選択肢もある。法的義務はないが、消費者庁は高額・長期サービスへの自主的な中途解約規定整備を推奨している</li>
+    <li>オンデマンド動画の「アクセス権付与 = 全役務提供済み」解釈を取る場合でも、消費者庁・裁判所が認めるかは不確実。「実際に視聴した分」を基準に見られる傾向がある</li>
+    <li>現実的な返金設計例：クーリングオフ後の<strong>受講開始前なら全額返金</strong>・<strong>受講開始後は視聴コンテンツ数に応じた按分返金</strong>・<strong>受講済み比率が高い（例：80%超）なら返金なし</strong></li>
+    <li>どちらの構成を取る場合も<strong>違約金の設定には実損根拠の文書化</strong>と<strong>弁護士レビュー</strong>を推奨</li>
+    <li>クーリングオフ（8日間）は特商法第20条で強制。この期間の解除・返金ルールは両ケースで同一（違約金請求不可・全額返還）</li>
+  </ul>
+</div>
+
+</div><!-- /tab-refund -->
+
 <div class="footer">
   <strong>対象サービス：</strong>35万円 ビジネス基礎スキル講座（ロジカルシンキング・タスクマネジメント・コミュニケーション・AI活用）オンデマンド動画、Zoom説明会経由クロージング<br>
   <strong>出典：</strong>消費者庁「特定商取引法ガイド」https://www.no-trouble.caa.go.jp/what/telemarketing/ ／ 特定商取引に関する法律 第16〜25条<br>
   <strong>注意：</strong>本資料は法令・公式ガイドに基づく整理です。個別案件への適用は弁護士等の専門家にご確認ください。2026年4月。
 </div>
 
+<script>
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
 </body>
 </html>
