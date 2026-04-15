@@ -884,11 +884,17 @@ body {
       <p><span class="badge-caution">規約次第</span>法定の解約権なし。利用規約の定めによる。ただし「解約不可」の絶対条項は第10条で無効リスク。</p>
     </div>
     <div class="refund-section">
-      <h4>損害賠償・違約金の上限</h4>
+      <h4>提供済み役務の算出方式</h4>
+      <p>法的な強制方式なし（特定継続的役務と同様）。①契約書面に明記、②合理性、の2条件で自由設計。ただし「アクセス権付与＝全役務提供済み」の解釈は裁判所・消費者庁から合理性を否定されるリスクがある。</p>
+    </div>
+    <div class="refund-section">
+      <h4>返金額の構造</h4>
+      <p><strong>返金額 ＝ 残余対価 − 「平均的な損害額」に基づく違約金</strong></p>
       <ul>
-        <li>第9条：「平均的な損害額」を超える部分は無効（具体的な法定額なし）</li>
-        <li>「平均的な損害額」は事業者が実際に被る損害の客観的平均値（裁判所が判断）</li>
-        <li>根拠のない高額違約金は訴訟で無効とされるリスクあり</li>
+        <li>「平均的な損害額」＝ 同種の解除により事業者が被る損失の客観的平均値（第9条）</li>
+        <li>デジタルコンテンツで損害として認められやすい項目：解約処理費用・カスタマーサポートコスト・顧客獲得費用の按分</li>
+        <li>認められにくい項目：コンテンツ制作費（すでに発生済みのサンクコスト）・残余期間の利益丸ごと</li>
+        <li>法定上限なし → 違約金を高く設定するほど第9条で無効とされるリスクが増す</li>
       </ul>
     </div>
     <div class="refund-section">
@@ -923,15 +929,42 @@ body {
 <div class="refund-implication">
   <h3>このサービス（35万円・オンデマンド動画）への示唆</h3>
   <ul>
-    <li><strong>算出方式は契約設計次第。</strong>法律は期間・回数・コンテンツ数のどれかを強制しない。①契約書面に明記、②契約締結時単価の使用、③合理性、の3条件を満たせばよい</li>
-    <li><strong>「アクセス権付与 = 全役務提供済み」は法的に不確実。</strong>特定継続的役務に該当した場合、消費者庁・裁判所が「実際に利用した分」で判断するリスクがある。利用規約で明示的に定義しても、合理性を欠くとして覆される可能性がある</li>
-    <li><strong>PC教室該当時の計算例</strong>（コンテンツ数按分・全4講座中1講座受講後解約）：<br>
-      提供済み対価 350,000円×25% = 87,500円 ／ 残余 262,500円 ／
-      違約金上限 min(50,000円, 262,500円×20%=52,500円) = <strong>50,000円</strong> ／
-      <strong>返金額 212,500円</strong></li>
-    <li>特定継続的役務に<strong>自発的に準拠する</strong>選択肢もある。法的義務はないが同様のルールを利用規約で定めることで消費者庁指導・訴訟リスクを下げられる</li>
-    <li><strong>クーリングオフ（8日間）はどちらのケースでも共通。</strong>この期間の解除は違約金請求不可・全額返金（特商法第20条）</li>
-    <li>高額サービス（35万円）の解約規定は<strong>弁護士レビュー推奨</strong>。特に按分方式の根拠・違約金額の妥当性について</li>
+    <li><strong>算出方式は両ケースとも契約設計次第。</strong>法律は期間・回数・コンテンツ数のどれかを強制しない。①契約書面に明記、②合理性、の条件を満たせばよい（特定継続的役務の場合は加えて③契約締結時単価の使用）</li>
+    <li><strong>「アクセス権付与 = 全役務提供済み」は両ケースともリスクあり。</strong>裁判所・消費者庁は「実際に利用した分」を基準に判断する傾向がある</li>
+  </ul>
+
+  <div style="margin:14px 0 10px;font-size:12px;font-weight:700;color:#4a2f9e;">▌ 対比計算例（全4講座中1講座受講後に解約）</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
+    <div style="background:#EEF3FF;border-radius:8px;padding:10px 12px;border-left:4px solid #1E2761;">
+      <div style="font-size:11px;font-weight:700;color:#1E2761;margin-bottom:6px;">特定継続的役務（PC教室）該当</div>
+      <div style="font-size:12px;line-height:1.8;color:#333;">
+        契約総額：350,000円<br>
+        提供済み対価（25%）：87,500円<br>
+        残余契約額：262,500円<br>
+        違約金上限：min(50,000円, 52,500円) ＝ <strong>50,000円</strong><br>
+        <span style="font-size:13px;font-weight:700;color:#1E2761;">返金額：212,500円</span><br>
+        <span style="font-size:11px;color:#666;">（上限は法定・明確）</span>
+      </div>
+    </div>
+    <div style="background:#EDFAF3;border-radius:8px;padding:10px 12px;border-left:4px solid #27AE60;">
+      <div style="font-size:11px;font-weight:700;color:#1a7a48;margin-bottom:6px;">消費者契約法のみ（非該当）</div>
+      <div style="font-size:12px;line-height:1.8;color:#333;">
+        契約総額：350,000円<br>
+        提供済み対価（25%）：87,500円<br>
+        残余契約額：262,500円<br>
+        違約金：「平均的な損害額」＝ <strong>不確定</strong><br>
+        <span style="font-size:11px;color:#666;">（例：解約処理費用・顧客獲得費按分のみ認定なら数千〜数万円程度）</span><br>
+        <span style="font-size:13px;font-weight:700;color:#1a7a48;">返金額：残余 − 実損相当額（裁判所判断）</span>
+      </div>
+    </div>
+  </div>
+  <div style="background:#fff8e6;border-radius:8px;padding:10px 12px;font-size:12px;line-height:1.7;border-left:4px solid #E07B27;margin-bottom:10px;">
+    <strong>⚠ 逆転リスク：</strong>消費者契約法のみの場合、「平均的な損害額」が特定継続的役務の法定額（5万円）より低く認定されると、返金額が特定継続的役務より多くなる可能性がある。根拠のない高額違約金を設定すると第9条で無効とされるリスクが高い。
+  </div>
+  <ul>
+    <li>特定継続的役務に<strong>自発的に準拠する</strong>選択肢もある。違約金上限の「5万円/20%」基準を自主的に採用することで紛争リスクを予測可能な範囲に収められる</li>
+    <li><strong>クーリングオフ（8日間）はどちらのケースでも共通。</strong>特商法第20条により違約金請求不可・全額返金</li>
+    <li>高額サービス（35万円）の解約規定は<strong>弁護士レビュー推奨。</strong>特に按分方式の根拠・違約金の「平均的な損害額」の算定根拠の文書化が重要</li>
   </ul>
 </div>
 
