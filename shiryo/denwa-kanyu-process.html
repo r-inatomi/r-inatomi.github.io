@@ -76,6 +76,79 @@ body {
 .lb-purple .law-note { font-size: 12px; color: #555; margin-top: 8px; background: #f7f4fd; border-radius: 6px; padding: 6px 10px; }
 .lb-full { grid-column: 1 / -1; }
 
+/* ── 特定継続的役務差分セクション ── */
+.tokutei-diff {
+  margin-top: 28px;
+}
+.diff-header {
+  background: linear-gradient(135deg, #6D4FC2 0%, #9B59B6 100%);
+  color: #fff;
+  border-radius: 12px 12px 0 0;
+  padding: 13px 18px;
+  margin-bottom: 0;
+}
+.diff-header h2 {
+  font-size: 14px; font-weight: 800; margin-bottom: 4px;
+}
+.diff-header p {
+  font-size: 12px; color: rgba(255,255,255,.82); line-height: 1.5;
+}
+.diff-note-bar {
+  background: #f0ebfa;
+  border: 1px solid #c9b8ef;
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+  padding: 8px 18px;
+  font-size: 12px; color: #5c3d9e;
+  margin-bottom: 16px;
+}
+.diff-steps { display: flex; flex-direction: column; gap: 10px; }
+.diff-step {
+  display: flex; gap: 12px; position: relative; z-index: 1;
+}
+.diff-badge {
+  flex-shrink: 0; width: 34px; height: 34px;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 800; color: #fff;
+  background: #6D4FC2;
+  box-shadow: 0 3px 10px rgba(0,0,0,.22);
+  margin-top: 12px; border: 3px solid #ECEEF2;
+}
+@media (max-width: 480px) {
+  .diff-badge { width: 26px; height: 26px; font-size: 9px; }
+}
+.diff-card {
+  flex: 1; background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 3px 16px rgba(0,0,0,.07);
+  overflow: hidden; min-width: 0;
+}
+.diff-head {
+  display: flex; align-items: flex-start; gap: 8px;
+  padding: 10px 14px;
+  background: linear-gradient(90deg, #5c2fb5 0%, #7B4FD4 100%);
+  color: #fff; flex-wrap: wrap;
+}
+.diff-head .diff-step-name { font-size: 13px; font-weight: 700; flex: 1; }
+.diff-head .diff-law {
+  font-size: 10px; background: rgba(255,255,255,.2);
+  padding: 2px 7px; border-radius: 8px; white-space: nowrap;
+  align-self: flex-start; margin-top: 2px;
+}
+.diff-body {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px; padding: 12px;
+}
+@media (max-width: 640px) {
+  .diff-body { grid-template-columns: 1fr; }
+}
+.diff-tag {
+  display: inline-block; font-size: 10px; font-weight: 700;
+  padding: 1px 7px; border-radius: 6px;
+  background: #EDE8FA; color: #4a2f9e; margin-bottom: 5px;
+}
+
 /* ── 凡例 ── */
 .legend {
   display: flex; flex-wrap: wrap; gap: 8px;
@@ -807,6 +880,114 @@ body {
   </div>
 
 </div><!-- /timeline -->
+
+<!-- 特定継続的役務適用時の差分 -->
+<div class="tokutei-diff">
+  <div class="diff-header">
+    <h2>📌 特定継続的役務（特商法第4章）が適用される場合の追加・変更点</h2>
+    <p>上記の電話勧誘販売プロセスに加えて、以下のSTEPのみ差分が発生する。STEP 0〜3・STEP 6は電話勧誘販売と同一のため省略。</p>
+  </div>
+  <div class="diff-note-bar">
+    適用条件：契約期間2か月超 かつ 対価5万円超 かつ 7業種のいずれかに該当（PC教室として認定される場合を前提）
+  </div>
+
+  <div class="diff-steps">
+
+    <!-- STEP 4 差分 -->
+    <div class="diff-step">
+      <div class="diff-badge">△4</div>
+      <div class="diff-card">
+        <div class="diff-head">
+          <span class="diff-step-name">STEP 4｜申込書面（第42条）への追加記載事項</span>
+          <span class="diff-law">特商法 第42条</span>
+        </div>
+        <div class="diff-body">
+          <div class="rb rb-doc">
+            <div class="rb-title">📄 電話勧誘販売の書面事項に加えて追記</div>
+            <span class="diff-tag">第42条 追加必須</span>
+            <ul>
+              <li>役務の提供期間（開始予定日・終了日）</li>
+              <li>中途解約権が存在する旨（消費者はいつでも解約可）</li>
+              <li>中途解約時に請求できる対価の算定方法・違約金の上限額</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 5 差分 -->
+    <div class="diff-step">
+      <div class="diff-badge">△5</div>
+      <div class="diff-card">
+        <div class="diff-head">
+          <span class="diff-step-name">STEP 5｜契約書面（第43条）への追加記載事項</span>
+          <span class="diff-law">特商法 第43条</span>
+        </div>
+        <div class="diff-body">
+          <div class="rb rb-doc">
+            <div class="rb-title">📄 電話勧誘販売の書面事項に加えて追記</div>
+            <span class="diff-tag">第43条 追加必須</span>
+            <ul>
+              <li>役務の提供期間（開始日・終了日）の明記</li>
+              <li>「消費者はいつでも中途解約できる」旨（法定権利の明示）</li>
+              <li>中途解約時の対価算定方式（例：コンテンツ数按分など、契約書面に記載した方法）</li>
+              <li>違約金の上限：5万円 または 残余契約額の20%、いずれか低い方（PC教室の場合）</li>
+            </ul>
+          </div>
+          <div class="rb rb-right">
+            <div class="rb-title">🔵 記載上の注意</div>
+            <ul>
+              <li>違約金額を上限より高く設定した条項は無効（第50条）</li>
+              <li>按分方式は「コンテンツ数」「期間」「回数」いずれでも可。契約書面への明記と合理性が要件</li>
+              <li>NOVA最高裁判決：解約時に単価を変更する条項は不可。契約締結時の単価を使用</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 7 差分 -->
+    <div class="diff-step">
+      <div class="diff-badge">△7</div>
+      <div class="diff-card">
+        <div class="diff-head">
+          <span class="diff-step-name">STEP 7｜サービス開始後 ─ 中途解約権の法定化（最大の差分）</span>
+          <span class="diff-law">特商法 第49条・第50条</span>
+        </div>
+        <div class="diff-body">
+          <div class="rb rb-must">
+            <div class="rb-title">✅ 事業者が対応しなければならないこと</div>
+            <span class="diff-tag">第49条 法定義務</span>
+            <ul>
+              <li>消費者からの解約申出を<strong>拒否できない</strong>（いつでも・理由不問）</li>
+              <li>解約申出を受けたら速やかに返金計算・返金処理を行う</li>
+              <li>解約申出窓口（メール・フォーム等）を常時開設しておく</li>
+            </ul>
+          </div>
+          <div class="rb rb-right">
+            <div class="rb-title">🔵 損害賠償・違約金の上限（第50条 PC教室）</div>
+            <ul>
+              <li><strong>役務提供前：</strong>5万円 または 申込金額の20%（低い方）</li>
+              <li><strong>役務提供後：</strong>5万円 または 残余契約額の20%（低い方）</li>
+              <li>提供済み役務の対価は別途保持（上限はペナルティ部分のみ）</li>
+              <li><strong>返金額 ＝ 残余契約額 − 違約金（ペナルティ）</strong></li>
+            </ul>
+            <div class="note" style="margin-top:8px;">計算例（全4講座中1講座受講後解約）：残余 262,500円 − 違約金 50,000円 ＝ <strong>返金 212,500円</strong></div>
+          </div>
+          <div class="rb rb-ng">
+            <div class="rb-title">🚫 禁止・NG</div>
+            <ul>
+              <li>解約申出を拒否・無視・先延ばしにする</li>
+              <li>法定上限（5万円/残余20%）を超える違約金を請求する</li>
+              <li>「一度申し込んだら解約不可」の特約（第49条に反し無効）</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /diff-steps -->
+</div><!-- /tokutei-diff -->
 
 </div><!-- /tab-process -->
 
