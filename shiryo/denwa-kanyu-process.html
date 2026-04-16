@@ -149,6 +149,53 @@ body {
   background: #EDE8FA; color: #4a2f9e; margin-bottom: 5px;
 }
 
+/* ── チェックリスト ── */
+.cl-progress {
+  background: #fff; border-radius: 12px;
+  padding: 13px 16px; margin-bottom: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+  position: sticky; top: 0; z-index: 10;
+}
+.cl-progress-label {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 13px; font-weight: 700; color: #1E2761; margin-bottom: 7px;
+}
+.cl-progress-count { font-size: 12px; color: #888; font-weight: 400; }
+.cl-bar-wrap { background: #ECEEF2; border-radius: 8px; height: 8px; overflow: hidden; }
+.cl-bar { height: 100%; background: linear-gradient(90deg, #1E2761, #27AE60); border-radius: 8px; transition: width .35s; }
+.cl-step-card { margin-bottom: 10px; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,.06); }
+.cl-step-head {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px; color: #fff; cursor: pointer; user-select: none;
+}
+.cl-step-num {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: rgba(255,255,255,.22);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 800; flex-shrink: 0;
+}
+.cl-step-title { font-size: 13px; font-weight: 700; flex: 1; }
+.cl-step-progress { font-size: 11px; background: rgba(255,255,255,.2); padding: 2px 8px; border-radius: 8px; white-space: nowrap; }
+.cl-body { background: #fff; padding: 6px 14px 10px; }
+.cl-section { font-size: 10px; font-weight: 700; color: #aaa; letter-spacing: .07em; padding: 8px 0 3px; }
+.cl-item {
+  display: flex; align-items: flex-start; gap: 9px;
+  padding: 6px 0; border-bottom: 1px solid #f2f2f2;
+}
+.cl-item:last-child { border-bottom: none; }
+.cl-item input[type="checkbox"] {
+  width: 16px; height: 16px; flex-shrink: 0;
+  margin-top: 2px; cursor: pointer; accent-color: #1E2761;
+}
+.cl-item label { font-size: 13px; line-height: 1.55; color: #333; cursor: pointer; }
+.cl-item.cl-done label { color: #bbb; text-decoration: line-through; }
+.cl-reset {
+  display: block; margin: 16px auto 0; padding: 7px 22px;
+  border: 1px solid #ddd; border-radius: 8px;
+  background: #fff; font-size: 12px; color: #999; cursor: pointer;
+}
+.cl-reset:hover { background: #f5f5f5; }
+
 /* ── 凡例 ── */
 .legend {
   display: flex; flex-wrap: wrap; gap: 8px;
@@ -441,6 +488,7 @@ body {
 <!-- タブナビ -->
 <div class="tab-nav">
   <button class="tab-btn active" onclick="switchTab('process', this)">📋 プロセス図</button>
+  <button class="tab-btn" onclick="switchTab('checklist', this)">✅ チェックリスト</button>
   <button class="tab-btn" onclick="switchTab('refund', this)">💴 返金ルール比較</button>
 </div>
 
@@ -998,6 +1046,157 @@ body {
 
 </div><!-- /tab-process -->
 
+<!-- タブ: チェックリスト -->
+<div id="tab-checklist" class="tab-panel">
+
+<div class="cl-progress">
+  <div class="cl-progress-label">
+    <span>コンプライアンス チェックリスト</span>
+    <span class="cl-progress-count" id="cl-count">0 / 0 完了</span>
+  </div>
+  <div class="cl-bar-wrap"><div class="cl-bar" id="cl-bar" style="width:0%"></div></div>
+</div>
+
+<!-- STEP 0 -->
+<div class="cl-step-card">
+  <div class="cl-step-head c1" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'':'none'">
+    <span class="cl-step-num">前</span>
+    <span class="cl-step-title">STEP 0｜案内・LP・申込みフォーム</span>
+    <span class="cl-step-progress" id="sp-0">0/5</span>
+  </div>
+  <div class="cl-body" id="sb-0">
+    <div class="cl-item" id="ci-0-0"><input type="checkbox" id="c0-0"><label for="c0-0">LPに事業者名・住所・電話番号・代表者名を明記</label></div>
+    <div class="cl-item" id="ci-0-1"><input type="checkbox" id="c0-1"><label for="c0-1">「ビジネス基礎スキル講座（受講料350,000円・税抜）のご紹介およびお申込みのご案内を行います」をLPに表示</label></div>
+    <div class="cl-item" id="ci-0-2"><input type="checkbox" id="c0-2"><label for="c0-2">申込みフォームに「お申込みのご案内を含むことを確認しました」チェックボックスを設置（不意打ち性排除の証跡）</label></div>
+    <div class="cl-item" id="ci-0-3"><input type="checkbox" id="c0-3"><label for="c0-3">「残席」「期間限定」等の表示は事実に基づいている（景品表示法・不実告知の回避）</label></div>
+    <div class="cl-item" id="ci-0-4"><input type="checkbox" id="c0-4"><label for="c0-4">フォーム送信データの記録・保存体制を整備済み</label></div>
+  </div>
+</div>
+
+<!-- STEP 1 -->
+<div class="cl-step-card">
+  <div class="cl-step-head c2" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'':'none'">
+    <span class="cl-step-num">1</span>
+    <span class="cl-step-title">STEP 1｜Zoom冒頭の告知（法第16・17条）</span>
+    <span class="cl-step-progress" id="sp-1">0/3</span>
+  </div>
+  <div class="cl-body" id="sb-1">
+    <div class="cl-item" id="ci-1-0"><input type="checkbox" id="c1-0"><label for="c1-0">冒頭で事業者名を告知（法第16条：氏名等明示義務）</label></div>
+    <div class="cl-item" id="ci-1-1"><input type="checkbox" id="c1-1"><label for="c1-1">勧誘目的を告知「本日はビジネス基礎スキル講座のご案内を行います」（法第17条：目的告知義務）</label></div>
+    <div class="cl-item" id="ci-1-2"><input type="checkbox" id="c1-2"><label for="c1-2">Zoom録画を開始・録画データを記録・保存</label></div>
+  </div>
+</div>
+
+<!-- STEP 2 -->
+<div class="cl-step-card">
+  <div class="cl-step-head c3" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'':'none'">
+    <span class="cl-step-num">2</span>
+    <span class="cl-step-title">STEP 2｜説明会中（法第21条：禁止行為）</span>
+    <span class="cl-step-progress" id="sp-2">0/4</span>
+  </div>
+  <div class="cl-body" id="sb-2">
+    <div class="cl-item" id="ci-2-0"><input type="checkbox" id="c2-0"><label for="c2-0">役務の内容（4講座・オンデマンド動画・視聴期間・受講方法）を説明</label></div>
+    <div class="cl-item" id="ci-2-1"><input type="checkbox" id="c2-1"><label for="c2-1">受講料350,000円（税抜）を明示</label></div>
+    <div class="cl-item" id="ci-2-2"><input type="checkbox" id="c2-2"><label for="c2-2">断定的な収益・効果保証等の告知をしていない（不実告知・断定的判断の提供禁止）</label></div>
+    <div class="cl-item" id="ci-2-3"><input type="checkbox" id="c2-3"><label for="c2-3">有利誤認表示・優良誤認表示をしていない（景品表示法）</label></div>
+  </div>
+</div>
+
+<!-- STEP 3 -->
+<div class="cl-step-card">
+  <div class="cl-step-head c4" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'':'none'">
+    <span class="cl-step-num">3</span>
+    <span class="cl-step-title">STEP 3｜クロージング（申込み意思確認）</span>
+    <span class="cl-step-progress" id="sp-3">0/6</span>
+  </div>
+  <div class="cl-body" id="sb-3">
+    <div class="cl-item" id="ci-3-0"><input type="checkbox" id="c3-0"><label for="c3-0">商品名・金額・支払方法・視聴期間を声に出して復唱確認</label></div>
+    <div class="cl-item" id="ci-3-1"><input type="checkbox" id="c3-1"><label for="c3-1">「この内容でよろしいですか？」と明示的に意思確認</label></div>
+    <div class="cl-item" id="ci-3-2"><input type="checkbox" id="c3-2"><label for="c3-2">「書面受領後8日間クーリングオフができます」と告知</label></div>
+    <div class="cl-item" id="ci-3-3"><input type="checkbox" id="c3-3"><label for="c3-3">消費者の口頭での申込み意思表示（「はい」「申し込みます」等）を確認・Zoom録画に記録</label></div>
+    <div class="cl-item" id="ci-3-4"><input type="checkbox" id="c3-4"><label for="c3-4">支払方法を口頭で確認（「クレジットカードで」等）</label></div>
+    <div class="cl-item" id="ci-3-5"><input type="checkbox" id="c3-5"><label for="c3-5">書面送付先（メールアドレス）を口頭で確認・承認</label></div>
+  </div>
+</div>
+
+<!-- STEP 4 -->
+<div class="cl-step-card">
+  <div class="cl-step-head c5" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'':'none'">
+    <span class="cl-step-num">4</span>
+    <span class="cl-step-title">STEP 4｜申込書面の交付（法第18条）</span>
+    <span class="cl-step-progress" id="sp-4">0/8</span>
+  </div>
+  <div class="cl-body" id="sb-4">
+    <div class="cl-section">記載事項</div>
+    <div class="cl-item" id="ci-4-0"><input type="checkbox" id="c4-0"><label for="c4-0">事業者名・住所・電話番号・代表者名を記載</label></div>
+    <div class="cl-item" id="ci-4-1"><input type="checkbox" id="c4-1"><label for="c4-1">担当者氏名・申込み受付日時を記載</label></div>
+    <div class="cl-item" id="ci-4-2"><input type="checkbox" id="c4-2"><label for="c4-2">役務の種類（ビジネス基礎スキル講座 / オンデマンド動画）を記載</label></div>
+    <div class="cl-item" id="ci-4-3"><input type="checkbox" id="c4-3"><label for="c4-3">販売価格 350,000円（税抜）を記載</label></div>
+    <div class="cl-item" id="ci-4-4"><input type="checkbox" id="c4-4"><label for="c4-4">支払方法・時期を記載</label></div>
+    <div class="cl-item" id="ci-4-5"><input type="checkbox" id="c4-5"><label for="c4-5">視聴期間の開始・終了を記載</label></div>
+    <div class="cl-item" id="ci-4-6"><input type="checkbox" id="c4-6"><label for="c4-6">クーリングオフの方法・期間を<strong>赤字・赤枠</strong>で記載</label></div>
+    <div class="cl-section">交付・受領</div>
+    <div class="cl-item" id="ci-4-7"><input type="checkbox" id="c4-7"><label for="c4-7">電磁的交付の場合：消費者の事前承諾を取得・記録済み</label></div>
+    <div class="cl-item" id="ci-4-8"><input type="checkbox" id="c4-8"><label for="c4-8">書面送付後、受領確認の返信を受取・日時を記録</label></div>
+  </div>
+</div>
+
+<!-- STEP 5 -->
+<div class="cl-step-card">
+  <div class="cl-step-head c6" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'':'none'">
+    <span class="cl-step-num">5</span>
+    <span class="cl-step-title">STEP 5｜契約書面の交付（法第19条）← CO起算点</span>
+    <span class="cl-step-progress" id="sp-5">0/8</span>
+  </div>
+  <div class="cl-body" id="sb-5">
+    <div class="cl-section">記載事項（STEP 4全項目に加えて）</div>
+    <div class="cl-item" id="ci-5-0"><input type="checkbox" id="c5-0"><label for="c5-0">契約締結日・担当者氏名を記載</label></div>
+    <div class="cl-item" id="ci-5-1"><input type="checkbox" id="c5-1"><label for="c5-1">中途解約時の返金計算方法・違約金額を記載</label></div>
+    <div class="cl-item" id="ci-5-2"><input type="checkbox" id="c5-2"><label for="c5-2">クーリングオフ条項を<strong>赤字・赤枠</strong>で記載（必須。なければ起算しない）</label></div>
+    <div class="cl-item" id="ci-5-3"><input type="checkbox" id="c5-3"><label for="c5-3">クーリングオフ通知先（郵送先・メールアドレス）を記載</label></div>
+    <div class="cl-section">交付・受領</div>
+    <div class="cl-item" id="ci-5-4"><input type="checkbox" id="c5-4"><label for="c5-4">書面交付前にコンテンツへのアクセスを付与していない</label></div>
+    <div class="cl-item" id="ci-5-5"><input type="checkbox" id="c5-5"><label for="c5-5">書面送付後、受領確認の返信を受取・受領日時を記録（CO起算日の確定）</label></div>
+    <div class="cl-item" id="ci-5-6"><input type="checkbox" id="c5-6"><label for="c5-6">「クーリングオフの説明を理解した」旨の確認を取得・記録</label></div>
+  </div>
+</div>
+
+<!-- STEP 6 -->
+<div class="cl-step-card">
+  <div class="cl-step-head c7" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'':'none'">
+    <span class="cl-step-num">6</span>
+    <span class="cl-step-title">STEP 6｜クーリングオフ期間（書面受領後8日間）</span>
+    <span class="cl-step-progress" id="sp-6">0/5</span>
+  </div>
+  <div class="cl-body" id="sb-6">
+    <div class="cl-item" id="ci-6-0"><input type="checkbox" id="c6-0"><label for="c6-0">書面受領日を起算日として8日間を正確に計算（受領日が1日目）</label></div>
+    <div class="cl-item" id="ci-6-1"><input type="checkbox" id="c6-1"><label for="c6-1">コンテンツへのアクセス付与は書面受領日から<strong>9日目以降</strong>に実施</label></div>
+    <div class="cl-item" id="ci-6-2"><input type="checkbox" id="c6-2"><label for="c6-2">クーリングオフ通知の受付窓口が機能している（書面・メールどちらも受付可）</label></div>
+    <div class="cl-item" id="ci-6-3"><input type="checkbox" id="c6-3"><label for="c6-3">クーリングオフ通知受領時：全額返金処理の体制が整っている</label></div>
+    <div class="cl-item" id="ci-6-4"><input type="checkbox" id="c6-4"><label for="c6-4">クーリングオフ妨害行為（受取拒否・不当な条件提示・翻意させる勧誘）をしていない</label></div>
+  </div>
+</div>
+
+<!-- STEP 7 -->
+<div class="cl-step-card">
+  <div class="cl-step-head c8" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'':'none'">
+    <span class="cl-step-num">7</span>
+    <span class="cl-step-title">STEP 7｜サービス開始後の継続義務</span>
+    <span class="cl-step-progress" id="sp-7">0/5</span>
+  </div>
+  <div class="cl-body" id="sb-7">
+    <div class="cl-item" id="ci-7-0"><input type="checkbox" id="c7-0"><label for="c7-0">利用規約・プライバシーポリシーへの同意チェックを取得・記録</label></div>
+    <div class="cl-item" id="ci-7-1"><input type="checkbox" id="c7-1"><label for="c7-1">アカウント設定完了・受講開始確認ボタン押下またはメール返信を記録（返金計算の起点）</label></div>
+    <div class="cl-item" id="ci-7-2"><input type="checkbox" id="c7-2"><label for="c7-2">中途解約の申出窓口を常時開設（メール・フォーム等）</label></div>
+    <div class="cl-item" id="ci-7-3"><input type="checkbox" id="c7-3"><label for="c7-3">解約申出への対応方針・返金計算式を利用規約に明記済み（消費者契約法第9・10条対応）</label></div>
+    <div class="cl-item" id="ci-7-4"><input type="checkbox" id="c7-4"><label for="c7-4">個人情報の適切な管理・目的外利用禁止の体制が整っている</label></div>
+  </div>
+</div>
+
+<button class="cl-reset" onclick="resetChecklist()">チェックをリセット</button>
+
+</div><!-- /tab-checklist -->
+
 <!-- タブ: 返金ルール比較 -->
 <div id="tab-refund" class="tab-panel">
 
@@ -1172,6 +1371,83 @@ function switchTab(id, btn) {
   btn.classList.add('active');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
+// ── チェックリスト ──
+const CL_KEY = 'cl_state_v1';
+const STEPS = [
+  { id: 0, count: 5 }, { id: 1, count: 3 }, { id: 2, count: 4 },
+  { id: 3, count: 6 }, { id: 4, count: 9 }, { id: 5, count: 7 },
+  { id: 6, count: 5 }, { id: 7, count: 5 }
+];
+
+function loadChecklist() {
+  const saved = JSON.parse(localStorage.getItem(CL_KEY) || '{}');
+  STEPS.forEach(s => {
+    for (let i = 0; i < s.count; i++) {
+      const cb = document.getElementById('c' + s.id + '-' + i);
+      if (!cb) continue;
+      cb.checked = !!saved['c' + s.id + '-' + i];
+      cb.closest('.cl-item').classList.toggle('cl-done', cb.checked);
+    }
+  });
+  updateProgress();
+}
+
+function saveChecklist() {
+  const state = {};
+  STEPS.forEach(s => {
+    for (let i = 0; i < s.count; i++) {
+      const cb = document.getElementById('c' + s.id + '-' + i);
+      if (cb) state['c' + s.id + '-' + i] = cb.checked;
+    }
+  });
+  localStorage.setItem(CL_KEY, JSON.stringify(state));
+}
+
+function updateProgress() {
+  let total = 0, done = 0;
+  STEPS.forEach(s => {
+    let sd = 0;
+    for (let i = 0; i < s.count; i++) {
+      const cb = document.getElementById('c' + s.id + '-' + i);
+      if (!cb) continue;
+      total++;
+      if (cb.checked) { done++; sd++; }
+    }
+    const sp = document.getElementById('sp-' + s.id);
+    if (sp) sp.textContent = sd + '/' + s.count;
+  });
+  const pct = total ? Math.round(done / total * 100) : 0;
+  const bar = document.getElementById('cl-bar');
+  if (bar) bar.style.width = pct + '%';
+  const cnt = document.getElementById('cl-count');
+  if (cnt) cnt.textContent = done + ' / ' + total + ' 完了';
+}
+
+function resetChecklist() {
+  if (!confirm('チェックをすべてリセットしますか？')) return;
+  localStorage.removeItem(CL_KEY);
+  STEPS.forEach(s => {
+    for (let i = 0; i < s.count; i++) {
+      const cb = document.getElementById('c' + s.id + '-' + i);
+      if (!cb) continue;
+      cb.checked = false;
+      cb.closest('.cl-item').classList.remove('cl-done');
+    }
+  });
+  updateProgress();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadChecklist();
+  document.querySelectorAll('.cl-item input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      cb.closest('.cl-item').classList.toggle('cl-done', cb.checked);
+      saveChecklist();
+      updateProgress();
+    });
+  });
+});
 </script>
 </body>
 </html>
